@@ -1,5 +1,6 @@
+const config = require("../server-config.json")
 const mainSite = require('../models/mainSiteModel')
 
 exports.homePage = function (req, res) {
-  res.status(200).send('<h1>Hey!</h1>')
+  res.render('mainSite.ejs', {siteName: config.siteName, theme: config.theme})
 }

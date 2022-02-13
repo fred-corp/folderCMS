@@ -1,14 +1,15 @@
 class mainSite {
-  constructor (name) {
-    this.name = name
+  constructor (siteName, theme) {
+    this.siteName = siteName
+    this.theme = theme
   }
 
   setName (newName) {
-    this.name = newName
+    this.siteName = newName
   }
 
   getName () {
-    return this.name
+    return this.siteName
   }
 }
 
