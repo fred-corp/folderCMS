@@ -1,8 +1,8 @@
 class mainSite {
-  constructor(name){
+  constructor (name) {
     this.name = name
   }
-  
+
   setName (newName) {
     this.name = newName
   }
