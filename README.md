@@ -22,7 +22,7 @@ This project aims to make those tasks a bit easier.
 
 * NPM
 
-FolderCMS was written in Javascript and runs with NodeJS. First, clone this repo on your comuter/server and install dependencies :
+FolderCMS was written in Javascript and runs with NodeJS. First, clone this repo on your computer/server and install dependencies :
 
 ``` zsh
 $ git clone https://github.com/fred-corp/folderCMS
