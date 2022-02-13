@@ -16,7 +16,7 @@ body {
     sans-serif;
 }
 
-h1 {
+#sitename h1 {
   text-align: center;
 }
 
@@ -50,3 +50,22 @@ h1 {
 }
 
 /* end of Navbar CSS styles */
+
+
+/* Markdown content CSS, yay ! */
+
+#content {
+  max-width: 100vh;
+  width: max-content;
+  margin: auto;
+}
+
+/* CSS for markdown notes (">")*/
+#content blockquote {
+  margin : 0;
+  padding: 6px;
+  background-color: #333;
+  border-left: 5px;
+  border-color: #0b92e0;
+  border-style: hidden hidden hidden solid;
+}
