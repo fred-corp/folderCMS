@@ -1,5 +1,6 @@
 {
-  "siteName": "folderCMS",
+  "siteTitle": "folderCMS",
+  "siteName": "FolderCMS",
   "theme": "default",
   "port": 3000
 }
