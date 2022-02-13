@@ -9,8 +9,11 @@
 		<link rel="stylesheet" href="themes/<%= theme %>.css">
 	</head>
 	<body>
-		<h1><%= siteName %></h1>
+		<div id="sitename">
+			<h1><%= siteName %></h1>
+		</div>
 		<div id="navbar"><%- include('navbar.ejs') -%></div>
+		<div id="content"><%- content -%></div>
 		<script src="" async defer></script>
 	</body>
 </html>
