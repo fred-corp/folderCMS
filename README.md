@@ -5,6 +5,14 @@ An easy CMS for managing your website using markdown files placed in folders.
 > You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on.  
 > A demo website is on its way !
 
+## Development plans
+
+* Make a prototype
+* Polish the prototype to create a working demo
+* Release v1.0
+* Release a Docker container
+* Work on feature requests :)
+
 ## But why ?
 
 Well, I didn't really find a suitable solution for what I wanted to do. [Automad](https://automad.org) was great, but lacked some flexibility I wanted to have like :
@@ -40,7 +48,7 @@ $ node server.js
 
 ## Todo
 
-* Work on issues  
+* Work on issues (You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on).  
 
 Made with ❤️, lots of ☕️, and lack of 🛌
 
