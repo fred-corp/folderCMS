@@ -4,5 +4,5 @@
   "theme": "default",
   "port": 3000,
   "websiteDir": "website",
-  "refreshInterval": 6
+  "refreshInterval": 60
 }
