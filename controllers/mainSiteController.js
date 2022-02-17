@@ -7,5 +7,5 @@ const navBarDict = { active: 0, right: 2, items: [['page', 'Home', '/'], ['page'
 
 exports.homePage = function (req, res) {
   const html = marked.parse(fs.readFileSync('website/01.Home/page.md').toString())
-  res.render('mainSite.ejs', { navBar: navBarDict, siteTitle: config.siteTitle, theme: config.theme, siteName: config.siteName, content: html })
+  res.render('mainSite.ejs', { navBar: navBarDict, config: config, content: html })
 }
