@@ -41,4 +41,4 @@ function getFilesFromDir (dir, fileTypes) {
   return filesToReturn
 }
 
-setInterval(searchPages, config.refreshInterval * 1000)
+setInterval(searchPages, config.refreshInterval<1 ? 1000 : config.refreshInterval * 1000)
