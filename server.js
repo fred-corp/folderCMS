@@ -17,8 +17,10 @@ app.listen(config.port, function () {
 })
 
 function searchPages () {
-  const mdFiles = getFilesFromDir('website', ['.md'])
+  const mdFiles = getFilesFromDir(websiteDir, ['.md'])
+  const jsonFiles = getFilesFromDir(websiteDir, ['.json'])
   console.log(mdFiles)
+  console.log(jsonFiles)
 }
 
 // function from https://www.codexpedia.com/node-js/node-js-getting-files-from-a-directory-including-sub-directories/
