@@ -1,4 +1,16 @@
 <ul>
-	<li><a id="active" href="/">Home</a></li>
-	<li style="float:right"><a href="/about">About</a></li>
+	<% for (let index = 0; index < navBar.items.length; index++) { %>
+		<% const item = navBar.items[index] %>
+		<% if (item[0] == "page") { %>
+			<% if (index == navBar.active) { %>
+				<li><a id="active" href=<%= item[2] %> > <%= item[1] %></a></li>
+			<% } else { %>
+				<% if (index == navBar.right) { %>
+					<li style="float:right"><a href=<%= item[2] %> > <%= item[1] %></a></li>
+				<% } else { %>
+					<li><a href=<%= item[2] %> > <%= item[1] %></a></li>
+				<% } %>
+			<% } %>
+		<% } %>
+	<% } %>
 </ul>

@@ -5,5 +5,6 @@ const marked = require('marked')
 
 exports.homePage = function (req, res) {
   let html = marked.parse(fs.readFileSync('website/01.Home.md').toString())
-  res.render('mainSite.ejs', {siteTitle: config.siteTitle, theme: config.theme, siteName: config.siteName, content: html})
+  const navBarDict = {active: 0, right: 2, items: [["page", "Home", "/"], ["page", "Test", "/test"], ["page", "About", "/about"]]}
+  res.render('mainSite.ejs', {navBar: navBarDict, siteTitle: config.siteTitle, theme: config.theme, siteName: config.siteName, content: html})
 }
