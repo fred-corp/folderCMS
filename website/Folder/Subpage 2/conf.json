@@ -1,0 +1,9 @@
+{
+  "type": "page",
+  "navbar": {
+    "desktop": {
+      "index" : 2,
+      "float" : "none"
+    }
+  }
+}

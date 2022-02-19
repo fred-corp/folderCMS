@@ -1,0 +1,10 @@
+{
+  "type": "page",
+  "title": "About",
+  "navbar": {
+    "desktop": {
+      "index" : 3,
+      "float" : "right"
+    }
+  }
+}
