@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "directory-tree": "^3.2.1",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "marked": "^4.0.12",
