@@ -1,8 +1,7 @@
 {
-  "type": "folder",
   "navbar": {
     "desktop": {
-      "index" : 2,
+      "index" : 1,
       "float" : "none"
     }
   }

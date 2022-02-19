@@ -1,0 +1,8 @@
+{
+  "navbar": {
+    "desktop": {
+      "index" : 2,
+      "float" : "none"
+    }
+  }
+}
