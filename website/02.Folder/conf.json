@@ -1,5 +1,6 @@
 {
   "URL": "/folder",
+  "type": "folder",
   "navbar": {
     "desktop": {
       "index" : 2,

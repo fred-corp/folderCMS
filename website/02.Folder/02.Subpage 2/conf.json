@@ -1,5 +1,6 @@
 {
   "URL": "/folder/subpage2",
+  "type": "page",
   "navbar": {
     "desktop": {
       "index" : 2,

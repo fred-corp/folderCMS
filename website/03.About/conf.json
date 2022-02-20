@@ -1,5 +1,6 @@
 {
   "URL": "/about",
+  "type": "page",
   "navbar": {
     "desktop": {
       "index" : 3,
