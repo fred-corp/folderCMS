@@ -38,6 +38,13 @@ function searchPages () {
     }
   }
 
+  function getPathOnly(path) {
+    let pathList = path.split('/')
+    pathList.pop()
+    let pathOnly = pathList.join('/')
+    return pathOnly + '/'
+  }
+
   function parseElement(element){
     const subnames = element.path.split('/')
     console.log(subnames)
@@ -46,7 +53,7 @@ function searchPages () {
       if (element.extension == '.md') {
         navBarDict.items[parseInt(index_name[0]) - 1].type = 'page' 
         navBarDict.items[parseInt(index_name[0]) - 1].name = index_name[1]
-        navBarDict.items[parseInt(index_name[0]) - 1].pageFile = element.path  // This key needs to change to 'path', and must not have the filename at the end (new getPath method ?)
+        navBarDict.items[parseInt(index_name[0]) - 1].pageFile = getPathOnly(element.path)
       } else if (element.extension == '.json') {
         const conf = require('./' + element.path)
         navBarDict.items[parseInt(index_name[0]) - 1] = {}
