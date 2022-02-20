@@ -27,31 +27,30 @@ function searchPages () {
   navBarDict.active = 0
   navBarDict.items = []
 
-  function getInfo(element, called) {
+  function getInfo(element) {
     if(element.hasOwnProperty('children')) {
       const conf = require('./' + element.path + '/conf.json')
       if(conf.type == 'page') {
-        return parseElement(element, called)
+        return parseElement(element)
       } 
       else if (conf.type == 'folder') {
-        let item = parseElement(element, called)
-        if (called == false){
-          var items = []
-          for (let index = 0; index < element.children.length; index++) {
-            const child = element.children[index]
-            let subItem = getInfo(child, true)
-            if (typeof subItem !== 'undefined') {
-              items.push(getInfo(child, true))
-            }
+        let item = parseElement(element)
+        var items = []
+        for (let index = 0; index < element.children.length; index++) {
+          const child = element.children[index]
+          let subItem = getInfo(child)
+          if (typeof subItem !== 'undefined') {
+            items.push(subItem)
           }
-          item.subpages = items
         }
+        item.subpages = items
+        
         return item
       }
     }
   }
 
-  function parseElement(element, called){
+  function parseElement(element){
     var item = {}
     const subnames = element.path.split('/')
     const index_name = subnames[subnames.length-1].split('.')
@@ -69,7 +68,7 @@ function searchPages () {
   var items = []
   for (let index = 0; index < website.children.length; index++) {
     const child = website.children[index]
-    items.push(getInfo(child, false))
+    items.push(getInfo(child))
   }
   navBarDict.items = items
 
