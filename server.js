@@ -73,8 +73,5 @@ function searchPages () {
 
   console.log(navBarDict)
 
-  // Now to send this dictionary somewhere...
-
+  return navBarDict
 }
-
-setInterval(searchPages, config.refreshInterval<1 ? 1000 : config.refreshInterval * 1000)
