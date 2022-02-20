@@ -1,6 +1,8 @@
 const config = require('../server-config.json')
 const mainSiteModel = require('../models/mainSiteModel')
 const fs = require('fs')
+const path = require('path')
+const directoryTree = require('directory-tree')
 const marked = require('marked')
 
 const navBarDict = { active: 0, items: [{type:'page', name:'Home', URL:'/', path:'website/01.Home/', float:'none'}, {type:'page', name:'Test', URL:'/test', path:'website/01.Home/'}, {type:'page', name:'page', name:'About', URL:'/about', path:'website/03.About/'}] }
@@ -20,7 +22,7 @@ function searchPages () {
 
   function getInfo(element) {
     if(element.hasOwnProperty('children')) {
-      const conf = require('./' + element.path + '/conf.json')
+      const conf = require('../' + element.path + '/conf.json')
       if(conf.type == 'page') {
         return parseElement(element)
       } 
@@ -49,7 +51,7 @@ function searchPages () {
     item.name = index_name[1]
     item.index = parseInt(index_name[0])
     item.path = element.path
-    const conf = require('./' + element.path + '/conf.json')
+    const conf = require('../' + element.path + '/conf.json')
     item.type = conf.type
     item.URL = conf.URL
     item.float = conf.navbar.desktop.float
