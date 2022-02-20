@@ -27,49 +27,54 @@ function searchPages () {
   navBarDict.active = 0
   navBarDict.items = []
 
-  function getInfo(element) {
+  function getInfo(element, called) {
     if(element.hasOwnProperty('children')) {
-      for (let index = 0; index < element.children.length; index++) {
-        const child = element.children[index]
-        getInfo(child)
+      const conf = require('./' + element.path + '/conf.json')
+      if(conf.type == 'page') {
+        return parseElement(element, called)
+      } 
+      else if (conf.type == 'folder') {
+        let item = parseElement(element, called)
+        if (called == false){
+          var items = []
+          for (let index = 0; index < element.children.length; index++) {
+            const child = element.children[index]
+            let subItem = getInfo(child, true)
+            if (typeof subItem !== 'undefined') {
+              items.push(getInfo(child, true))
+            }
+          }
+          item.subpages = items
+        }
+        return item
       }
-    } else {
-      parseElement(element)
     }
   }
 
-  function getPathOnly(path) {
-    let pathList = path.split('/')
-    pathList.pop()
-    let pathOnly = pathList.join('/')
-    return pathOnly + '/'
-  }
-
-  function parseElement(element){
+  function parseElement(element, called){
+    var item = {}
     const subnames = element.path.split('/')
-    console.log(subnames)
-    if(subnames.length <= 3) {
-      const index_name = subnames[subnames.length-2].split('.')
-      if (element.extension == '.md') {
-        navBarDict.items[parseInt(index_name[0]) - 1].type = 'page' 
-        navBarDict.items[parseInt(index_name[0]) - 1].name = index_name[1]
-        navBarDict.items[parseInt(index_name[0]) - 1].pageFile = getPathOnly(element.path)
-      } else if (element.extension == '.json') {
-        const conf = require('./' + element.path)
-        navBarDict.items[parseInt(index_name[0]) - 1] = {}
-        navBarDict.items[parseInt(index_name[0]) - 1].URL = conf.URL
-        navBarDict.items[parseInt(index_name[0]) - 1].float = conf.navbar.desktop.float
-      }
-    }
+    const index_name = subnames[subnames.length-1].split('.')
+    item = {}
+    item.name = index_name[1]
+    item.index = parseInt(index_name[0])
+    item.path = element.path
+    const conf = require('./' + element.path + '/conf.json')
+    item.type = conf.type
+    item.URL = conf.URL
+    item.float = conf.navbar.desktop.float
+    return item
   }
 
+  var items = []
   for (let index = 0; index < website.children.length; index++) {
     const child = website.children[index]
-    getInfo(child)
-    
+    items.push(getInfo(child, false))
   }
+  navBarDict.items = items
 
   console.log(navBarDict)
+  console.log(navBarDict.items[1].subpages)
 
   // Now to send this dictionary somewhere...
 
