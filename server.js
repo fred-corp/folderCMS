@@ -19,7 +19,6 @@ app.listen(config.port, function () {
 })
 
 
-// TODO : add folder capability to navbar item
 function searchPages () {
   var website = directoryTree(config.websiteDir, {attributes:['type', 'extension'], normalizePath:true})
   
@@ -73,7 +72,6 @@ function searchPages () {
   navBarDict.items = items
 
   console.log(navBarDict)
-  console.log(navBarDict.items[1].subpages)
 
   // Now to send this dictionary somewhere...
 
