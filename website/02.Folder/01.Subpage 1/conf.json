@@ -3,7 +3,6 @@
   "type": "page",
   "navbar": {
     "desktop": {
-      "index" : 1,
       "float" : "none"
     }
   }
