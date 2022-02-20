@@ -1,15 +1,10 @@
 class mainSite {
-  constructor (siteName, theme) {
-    this.siteName = siteName
-    this.theme = theme
-  }
-
-  setName (newName) {
-    this.siteName = newName
-  }
-
-  getName () {
-    return this.siteName
+  constructor (config) {
+    this.siteTitle = config.siteTitle
+    this.siteName = config.siteName
+    this.theme = config.theme
+    this.websiteDir = config.websiteDir
+    this.refreshInterval = config.refreshInterval
   }
 }
 
