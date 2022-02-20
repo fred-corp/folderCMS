@@ -1,0 +1,10 @@
+{
+  "URL": "/folder/subfolder",
+  "type": "folder",
+  "navbar": {
+    "desktop": {
+      "index" : 2,
+      "float" : "none"
+    }
+  }
+}

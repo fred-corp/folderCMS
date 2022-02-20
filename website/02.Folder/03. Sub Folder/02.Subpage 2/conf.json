@@ -1,0 +1,10 @@
+{
+  "URL": "/folder/subfolder/subpage2",
+  "type": "page",
+  "navbar": {
+    "desktop": {
+      "index" : 2,
+      "float" : "none"
+    }
+  }
+}
