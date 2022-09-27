@@ -1,9 +1,0 @@
-{
-  "URL": "/folder/subfolder/subpage1",
-  "type": "page",
-  "navbar": {
-    "desktop": {
-      "float" : "none"
-    }
-  }
-}

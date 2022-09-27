@@ -1,9 +1,0 @@
-{
-  "URL": "/",
-  "type": "page",
-  "navbar": {
-    "desktop": {
-      "float" : "none"
-    }
-  }
-}
