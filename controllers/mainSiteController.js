@@ -66,51 +66,17 @@ function searchPages () {
     dirDict = { ...dirDict, ...toAppend }
   })
 
-
-  function getInfo (element) {
-    if (Object.prototype.hasOwnProperty.call(element, 'children')) {
-      const conf = require('../' + element.path + '/conf.json')
-      if (conf.type === 'page') {
-        return parseElement(element)
-      } else if (conf.type === 'folder') {
-        const item = parseElement(element)
-        const items = []
-        for (let index = 0; index < element.children.length; index++) {
-          const child = element.children[index]
-          const subItem = getInfo(child)
-          if (typeof subItem !== 'undefined') {
-            items.push(subItem)
-          }
-        }
-        item.subpages = items
-
-        return item
-      }
-    }
+  // convert dirDict to navBarDict
+  for (const key in dirDict) {
+    const dir = dirDict[key]
+    const navBarDictItem = {}
+    navBarDictItem.type = 'page'
+    navBarDictItem.name = dir.name
+    navBarDictItem.URL = dir.URL
+    navBarDictItem.path = dir.path
+    navBarDictItem.float = dir.float
+    navBarDict.items.push(navBarDictItem)
   }
-
-  function parseElement (element) {
-    const item = {}
-    const subnames = element.path.split('/')
-    const indexAndName = subnames[subnames.length - 1].split('.')
-    item.name = indexAndName[1]
-    item.index = parseInt(indexAndName[0])
-    item.path = element.path
-    const conf = require('../' + element.path + '/conf.json')
-    item.type = conf.type
-    item.URL = conf.URL
-    item.float = conf.navbar.desktop.float
-    return item
-  }
-
-  const items = []
-  for (let index = 0; index < website.children.length; index++) {
-    const child = website.children[index]
-    items.push(getInfo(child))
-  }
-  navBarDict.items = items
-
-  //console.log(navBarDict)
 
   return navBarDict
 }
