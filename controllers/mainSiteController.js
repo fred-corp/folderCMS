@@ -13,7 +13,7 @@ exports.homePage = function (req, res) {
 }
 
 function searchPages () {
-  const website = directoryTree(config.websiteDir, { attributes: ['type', 'extension'], normalizePath: true })
+  const website = directoryTree(config.websiteDir+'/pages', { attributes: ['type', 'extension'], normalizePath: true })
 
   const navBarDict = {}
   navBarDict.active = 0
@@ -66,24 +66,74 @@ function searchPages () {
     dirDict = { ...dirDict, ...toAppend }
   })
 
-  // convert dirDict to navBarDict
-  for (const key in dirDict) {
-    const dir = dirDict[key]
-    const navBarDictItem = {}
-    navBarDictItem.type = 'page'
-    navBarDictItem.name = dir.name
-    navBarDictItem.URL = dir.URL
-    navBarDictItem.path = dir.path
-    navBarDictItem.float = dir.float
-    navBarDict.items.push(navBarDictItem)
+  // convert dirDict to navBarDict recursively
+  function convertDirDictToNavBarDict (dirDict) {
+    const navBarItem = []
+    for (const key in dirDict) {
+      const dir = dirDict[key]
+      if (dir.folders) {
+        navBarItem.push({ type: 'menu', name: dir.name, URL: dir.URL, path: dir.path, float: dir.float, childs : convertDirDictToNavBarDict(dir.folders)})
+        // remove childs if empty and change type to 'page
+        if (navBarItem[navBarItem.length - 1].childs.length === 0) {
+          navBarItem[navBarItem.length - 1].type = 'page'
+          delete navBarItem[navBarItem.length - 1].childs
+        }
+      } else {
+        navBarItem.push({ type: 'page', name: dir.name, URL: dir.URL, path: dir.path, float: dir.float })
+      }
+    }
+    return navBarItem
   }
 
+  navBarDict.items = convertDirDictToNavBarDict(dirDict)
   return navBarDict
 }
 
+// create a URL LUT from navBarDict recursively
+function getURLLUT (navBarDict) {
+  const URLLUT = {}
+
+
+  function parseNavBarDict (navBarDict) {
+    for (let i = 0; i < navBarDict.length; i++) {
+      const navBarItem = navBarDict[i]
+      if (navBarItem.type === 'page') {
+        URLLUT[navBarItem.URL] = navBarItem
+      } else if (navBarItem.type === 'menu') {
+        URLLUT[navBarItem.URL] = navBarItem
+        parseNavBarDict(navBarItem.childs)
+      }
+    }
+  }
+
+  parseNavBarDict(navBarDict.items)
+
+  // remove childs from each navBarItem
+  for (const key in URLLUT) {
+    if (URLLUT[key].childs) {
+      delete URLLUT[key].childs
+    }
+  }
+
+  return URLLUT
+}
+
 exports.getPage = function (req, res) {
-  const page = req.params.page
+  const page = req.params['0']
   console.log("Page : " + page)
-  const html = marked.parse(fs.readFileSync('website/01-Home-none/page.md').toString())
-  res.render('mainSite.ejs', { navBar: searchPages(), config: config, content: html })
+  const navBarDict = searchPages()
+  //console.log('navBarDict : ' + JSON.stringify(navBarDict, null, 2))
+  const urlLUT = getURLLUT(navBarDict)
+  console.log('urlLUT : ' + JSON.stringify(urlLUT, null, 2))
+  const pageDict = urlLUT['/' + page]
+  if (pageDict) {
+    const html = marked.parse(fs.readFileSync(pageDict.path + '/page.md').toString())
+    const footer = {}
+    footer.left = marked.parse(fs.readFileSync(config.websiteDir+'/footer/left.md').toString())
+    footer.middle = marked.parse(fs.readFileSync(config.websiteDir+'/footer/middle.md').toString())
+    footer.right = marked.parse(fs.readFileSync(config.websiteDir+'/footer/right.md').toString())
+    res.render('mainSite.ejs', { navBar: navBarDict, config: config, content: html , footer: footer})
+  } else {
+    res.render('404.ejs', { navBar: navBarDict, config: config })
+  }
 }
