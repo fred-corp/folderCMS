@@ -2,6 +2,14 @@
   color-scheme: light dark;
 }
 
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
 body {
   font-family:
     -apple-system,
@@ -14,6 +22,11 @@ body {
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  align-items: top;
+  min-height: 100vh;
 }
 
 #sitename h1 {
@@ -21,6 +34,10 @@ body {
 }
 
 /* Navbar CSS styles */
+#navbar {
+  height: max-content;
+}
+
 #navbar ul {
   list-style-type: none;
   margin: 0;
@@ -56,8 +73,13 @@ body {
 
 #content {
   max-width: 100vh;
-  width: max-content;
-  margin: auto;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  /* place as high as possible */
+  z-index: 1;
+
 }
 
 /* CSS for markdown notes (">")*/
@@ -68,4 +90,38 @@ body {
   border-left: 5px;
   border-color: #0b92e0;
   border-style: hidden hidden hidden solid;
+}
+
+/* CSS for markdown images */
+#content img {
+  max-width: 90vw;
+  max-height: 30vh;
+  object-fit: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 30px 20px 30px;
+  color: white;
+  background-color: rgb(37, 37, 37);
+}
+
+
+#footer blockquote {
+  margin : 0;
+  padding: 6px;
+  background-color: #333;
+  border-left: 5px;
+  border-color: #0b92e0;
+  border-style: hidden hidden hidden solid;
+}
+
+/* add space between #footer #left, #footer #middle and #footer #right */
+#footer #left, #footer #middle, #footer #right {
+  padding: 0 10%;
 }
