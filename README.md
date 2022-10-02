@@ -1,5 +1,7 @@
 # FolderCMS
 
+![icon](/website-examples/Demo/images/favicon.ico)
+
 An easy CMS for managing your website using markdown files placed in folders.
 
 > You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on.  
@@ -15,7 +17,7 @@ An easy CMS for managing your website using markdown files placed in folders.
 
 ## But why ?
 
-Well, I didn't really find a suitable solution for what I wanted to do. [Automad](https://automad.org) was great, but lacked some flexibility I wanted to have like :
+Well, I didn't really find a suitable solution for my website needs. [Automad](https://automad.org) was great, but lacked some flexibility I wanted to have like :
 
 * **Drop-down menus in navbar**  
 * Easily make custom themes  
@@ -26,7 +28,7 @@ This project aims to make those tasks a bit easier.
 
 ## How to use
 
-This repo contains a demo website (```website-example```) with a working structure. it should provide a good starting point for your own website.
+This repo contains a example websites (in ```website-examplse```) with working structures. it should provide a good starting point for your own website.
 
 To create your website, you'll have to modify ```server-config.json``` and create a website directory with the exlained folder structure.
 
@@ -174,8 +176,10 @@ docker run -d -p 3000:3000 -v /path/to/website:/app/website -v /path/to/config:/
 ## Todo
 
 * Work on issues (You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on).  
-* Create live demo website
-* Create documentation
+* Create more themes
+* Test the ```files``` folder
+* Create live demo website  
+* Create documentation  
 
 Made with ❤️, lots of ☕️, and lack of 🛌
 
