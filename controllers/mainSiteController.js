@@ -16,7 +16,7 @@ function searchPages () {
   const website = directoryTree(config.websiteDir+'/pages', { attributes: ['type', 'extension'], normalizePath: true })
 
   const navBarDict = {}
-  navBarDict.active = 0
+  navBarDict.active = ""
   navBarDict.items = []
 
   // parse a directory name that looks like "01-Home Page" or "01-Home Page-none" into "01", "Home Page", and "none" with regex
@@ -126,6 +126,7 @@ exports.getPage = function (req, res) {
   const urlLUT = getURLLUT(navBarDict)
   console.log('urlLUT : ' + JSON.stringify(urlLUT, null, 2))
   const pageDict = urlLUT['/' + page]
+  navBarDict.active = pageDict.name
   if (pageDict) {
     const html = marked.parse(fs.readFileSync(pageDict.path + '/page.md').toString())
     const footer = {}
