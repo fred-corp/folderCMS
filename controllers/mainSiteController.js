@@ -1,7 +1,6 @@
 const config = require('../server-config.json')
 // const mainSiteModel = require('../models/mainSiteModel')
 const fs = require('fs')
-// const path = require('path')
 const directoryTree = require('directory-tree')
 const marked = require('marked')
 
@@ -16,6 +15,10 @@ const isEmptyObject = (obj) => {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
+
+// parse a directory name that looks like "01-Home Page" or "01-Home Page-none" into "01", "Home Page", and "none" with regex
+const dirNameRegex = /(\d\d)-(.*)-(.*)/
+
 function searchPages () {
   const website = directoryTree(config.websiteDir+'/pages', { attributes: ['type', 'extension'], normalizePath: true })
 
@@ -23,8 +26,6 @@ function searchPages () {
   navBarDict.active = ""
   navBarDict.items = []
 
-  // parse a directory name that looks like "01-Home Page" or "01-Home Page-none" into "01", "Home Page", and "none" with regex
-  const dirNameRegex = /(\d\d)-(.*)-(.*)/
 
   // Store the directory's name in a dictionary with the key being the first element in regex match, recursively for all subdirectories, and sub-subdirectories, etc.if the directory has childrenstore witha "child" key)
   let dirDict = {}
@@ -107,13 +108,30 @@ const getURLLUT = function (_navBarDict) {
 
   parseNavBarDict(_navBarDict.items)
 
-  // remove childs from each navBarItem
-  // for (const key in URLLUT) {
-  //   if (URLLUT[key].childs) {
-  //     delete URLLUT[key].childs
-  //   }
-  // }
 
+  // add the parent URL to the child URL if it hasn't been added yet
+  // for example if URL is /subfolder and subfloder is in Folder, add /Folder in front
+  for (const key in URLLUT) {
+    if (URLLUT[key].type === 'page') {
+      const URL = URLLUT[key].URL
+      const path = URLLUT[key].path
+      const pathSplit = path.split('/')
+      const pathSplitLength = pathSplit.length
+      if (pathSplitLength > 2) {
+        const dirNameMatch = dirNameRegex.exec(pathSplit[2])
+        if (dirNameMatch) {
+          const parentURL = ('/' + dirNameMatch[2]).replace(' ', '_')
+          if (!URL.startsWith(parentURL)) {
+            //change key of element in URLLUT
+            const newKey = parentURL + URL
+            URLLUT[newKey] = URLLUT[key]
+            delete URLLUT[key]
+          }
+        }
+      }
+    }
+  }
+  
   return URLLUT
 }
 
