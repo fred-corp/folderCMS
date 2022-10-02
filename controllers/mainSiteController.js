@@ -1,4 +1,4 @@
-const config = require('../conifg/server-config.json')
+const config = require('../config/server-config.json')
 // const mainSiteModel = require('../models/mainSiteModel')
 const fs = require('fs')
 const directoryTree = require('directory-tree')

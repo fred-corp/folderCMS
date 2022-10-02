@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const routes = require('./routes')
-const config = require('./conifg/server-config.json')
+const config = require('./config/server-config.json')
 // const { connected } = require('process')
 
 // const websiteDir = config.websiteDir

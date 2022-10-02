@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const config = require('./conifg/server-config.json')
+const config = require('./config/server-config.json')
 
 const mainSiteController = require('./controllers/mainSiteController')
 
