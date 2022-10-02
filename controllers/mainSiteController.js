@@ -12,6 +12,10 @@ exports.homePage = function (req, res) {
   res.render('mainSite.ejs', { navBar: searchPages(), config: config, content: html })
 }
 
+const isEmptyObject = (obj) => {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
 function searchPages () {
   const website = directoryTree(config.websiteDir+'/pages', { attributes: ['type', 'extension'], normalizePath: true })
 
@@ -71,13 +75,8 @@ function searchPages () {
     const navBarItem = []
     for (const key in dirDict) {
       const dir = dirDict[key]
-      if (dir.folders) {
+      if (!isEmptyObject(dir.folders)) {
         navBarItem.push({ type: 'menu', name: dir.name, URL: dir.URL, path: dir.path, float: dir.float, childs : convertDirDictToNavBarDict(dir.folders)})
-        // remove childs if empty and change type to 'page
-        if (navBarItem[navBarItem.length - 1].childs.length === 0) {
-          navBarItem[navBarItem.length - 1].type = 'page'
-          delete navBarItem[navBarItem.length - 1].childs
-        }
       } else {
         navBarItem.push({ type: 'page', name: dir.name, URL: dir.URL, path: dir.path, float: dir.float })
       }
@@ -90,13 +89,13 @@ function searchPages () {
 }
 
 // create a URL LUT from navBarDict recursively
-function getURLLUT (navBarDict) {
+const getURLLUT = function (_navBarDict) {
   const URLLUT = {}
 
 
-  function parseNavBarDict (navBarDict) {
-    for (let i = 0; i < navBarDict.length; i++) {
-      const navBarItem = navBarDict[i]
+  function parseNavBarDict (__navBarDict) {
+    for (let i = 0; i < __navBarDict.length; i++) {
+      const navBarItem = __navBarDict[i]
       if (navBarItem.type === 'page') {
         URLLUT[navBarItem.URL] = navBarItem
       } else if (navBarItem.type === 'menu') {
@@ -106,14 +105,14 @@ function getURLLUT (navBarDict) {
     }
   }
 
-  parseNavBarDict(navBarDict.items)
+  parseNavBarDict(_navBarDict.items)
 
   // remove childs from each navBarItem
-  for (const key in URLLUT) {
-    if (URLLUT[key].childs) {
-      delete URLLUT[key].childs
-    }
-  }
+  // for (const key in URLLUT) {
+  //   if (URLLUT[key].childs) {
+  //     delete URLLUT[key].childs
+  //   }
+  // }
 
   return URLLUT
 }

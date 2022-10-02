@@ -1,21 +1,40 @@
-<ul>
-	<% for (let index = 0; index < navBar.items.length; index++) { %>
-		<% const item = navBar.items[index] %>
-		<% if (item.type == "page") { %>
-			<% if (item.name == navBar.active) { %>
-				<% if (item.float == "right") { %>
-					<li style="float:right" class="active"><a href=<%= item.URL %> ><%= item.name %></a></li>
-				<% } else { %>
-					<li class="active"><a href=<%= item.URL %> ><%= item.name %></a></li>
-				<% } %>
+<% for (let index = 0; index < navBar.items.length; index++) { %>
+	<% const item = navBar.items[index] %>
+	<% if (item.type == "page") { %>
+		<% if (item.name == navBar.active) { %>
+			<% if (item.float == "right") { %>
+				<a href=<%= item.URL %> style="float:right" id="active"><%= item.name %></a>
 			<% } else { %>
-				<% if (item.float == "right") { %>
-					<li style="float:right"><a href=<%= item.URL %> ><%= item.name %></a></li>
-				<% } else { %>
-					<li><a href=<%= item.URL %> ><%= item.name %></a></li>
-				<% } %>
+				<a href=<%= item.URL %> id="active"><%= item.name %></a>
 			<% } %>
-			
+		<% } else { %>
+			<% if (item.float == "right") { %>
+				<a href=<%= item.URL %> style="float:right"><%= item.name %></a>
+			<% } else { %>
+				<a href=<%= item.URL %> ><%= item.name %></a>
+			<% } %>
 		<% } %>
+	<% } else if (item.type == "menu") { %>
+		<% if (item.name == navBar.active) { %>
+			<div class="dropdown" id="active">
+			<% if (item.float == "right") { %>
+				<button style="float:right" class="dropbtn" onclick="window.location.href='<%= item.URL %>';" ><%= item.name %></button>
+			<% } else { %>
+				<button class="dropbtn" onclick="window.location.href='<%= item.URL %>';" ><%= item.name %></button>
+			<% } %>
+		<% } else { %>
+			<div class="dropdown">
+			<% if (item.float == "right") { %>
+				<button style="float:right" class="dropbtn" onclick="window.location.href='<%= item.URL %>';" ><%= item.name %></button>
+			<% } else { %>
+				<button  class="dropbtn" onclick="window.location.href='<%= item.URL %>';" ><%= item.name %></button>
+			<% } %>
+		<% } %>
+		<div class="dropdown-content">
+			<% for (let i = 0; i < item.childs.length; i++ ) { %>
+				<a href=<%= item.childs[i].URL %> ><%= item.childs[i].name %></a>
+			<% } %>
+		</div>
+	</div>
 	<% } %>
-</ul>
+<% } %>
