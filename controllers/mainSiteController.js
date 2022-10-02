@@ -124,18 +124,20 @@ exports.getPage = function (req, res) {
   const pageDict = urlLUT['/' + page]
   if (pageDict) {
     navBarDict.active = pageDict.name
+    const siteName = marked.parse(fs.readFileSync(config.websiteDir+'/title' + '/page.md').toString())
     const html = marked.parse(fs.readFileSync(pageDict.path + '/page.md').toString())
     const footer = {}
     footer.left = marked.parse(fs.readFileSync(config.websiteDir+'/footer/left.md').toString())
     footer.middle = marked.parse(fs.readFileSync(config.websiteDir+'/footer/middle.md').toString())
     footer.right = marked.parse(fs.readFileSync(config.websiteDir+'/footer/right.md').toString())
-    res.render('mainSite.ejs', { navBar: navBarDict, config: config, content: html , footer: footer})
+    res.render('mainSite.ejs', { sitename : siteName, navBar: navBarDict, config: config, content: html , footer: footer})
   } else {
+    const siteName = marked.parse(fs.readFileSync(config.websiteDir+'/title' + '/page.md').toString())
     const html = marked.parse(fs.readFileSync(config.websiteDir + '/404/page.md').toString())
     const footer = {}
     footer.left = marked.parse(fs.readFileSync(config.websiteDir+'/footer/left.md').toString())
     footer.middle = marked.parse(fs.readFileSync(config.websiteDir+'/footer/middle.md').toString())
     footer.right = marked.parse(fs.readFileSync(config.websiteDir+'/footer/right.md').toString())
-    res.render('mainSite.ejs', { navBar: navBarDict, config: config, content: html , footer: footer})
+    res.render('mainSite.ejs', { sitename : siteName, navBar: navBarDict, config: config, content: html , footer: footer})
   }
 }

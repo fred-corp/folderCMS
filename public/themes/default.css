@@ -19,8 +19,34 @@ body {
   color: rgb(255, 255, 255);
 }
 
+/* Site Name CSS */
+#sitename {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(30, 30, 30);
+  color: rgb(255, 255, 255);
+}
+
+#sitename img {
+  width: 50px;
+  height: 50px;
+  margin-right : 2em;
+  padding: 0;
+}
+
 #sitename h1 {
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+}
+
+#sitename p {
+  margin-left : 2em;
+  padding: 0;
 }
 
 /* Navbar CSS styles */

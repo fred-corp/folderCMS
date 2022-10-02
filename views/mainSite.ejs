@@ -10,9 +10,7 @@
 		<link rel="stylesheet" href="themes/<%= config.theme %>.css">
 	</head>
 	<body>
-		<div id="sitename">
-			<h1><%= config.siteName %></h1>
-		</div>
+		<div id="sitename"><%- sitename %></div>
 		<div class="navbar"><%- include('navbar.ejs') -%></div>
 		<div id="content"><%- content -%></div>
 		<div id="footer"><%- include('footer.ejs') -%></div>
