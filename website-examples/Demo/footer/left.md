@@ -1,3 +1,4 @@
 # Contact
 
-* [contact@fredcorp.cc](mailto:contact@fredcorp.cc)
+* Email: some@email.address
+* Phone: 123-456-7890
