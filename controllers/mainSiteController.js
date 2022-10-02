@@ -122,8 +122,8 @@ exports.getPage = function (req, res) {
   const navBarDict = searchPages()
   const urlLUT = getURLLUT(navBarDict)
   const pageDict = urlLUT['/' + page]
-  navBarDict.active = pageDict.name
   if (pageDict) {
+    navBarDict.active = pageDict.name
     const html = marked.parse(fs.readFileSync(pageDict.path + '/page.md').toString())
     const footer = {}
     footer.left = marked.parse(fs.readFileSync(config.websiteDir+'/footer/left.md').toString())
@@ -131,6 +131,11 @@ exports.getPage = function (req, res) {
     footer.right = marked.parse(fs.readFileSync(config.websiteDir+'/footer/right.md').toString())
     res.render('mainSite.ejs', { navBar: navBarDict, config: config, content: html , footer: footer})
   } else {
-    res.render('404.ejs', { navBar: navBarDict, config: config })
+    const html = marked.parse(fs.readFileSync(config.websiteDir + '/404/page.md').toString())
+    const footer = {}
+    footer.left = marked.parse(fs.readFileSync(config.websiteDir+'/footer/left.md').toString())
+    footer.middle = marked.parse(fs.readFileSync(config.websiteDir+'/footer/middle.md').toString())
+    footer.right = marked.parse(fs.readFileSync(config.websiteDir+'/footer/right.md').toString())
+    res.render('mainSite.ejs', { navBar: navBarDict, config: config, content: html , footer: footer})
   }
 }
