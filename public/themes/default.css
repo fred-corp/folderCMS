@@ -115,6 +115,10 @@ body {
   border-style: hidden hidden hidden solid;
 }
 
+#content a {
+  color: #0b92e0;
+}
+
 /* CSS for markdown images */
 #content img {
   max-width: 90vw;
@@ -144,6 +148,10 @@ body {
   border-left: 5px;
   border-color: #0b92e0;
   border-style: hidden hidden hidden solid;
+}
+
+#footer a {
+  color: #0b92e0;
 }
 
 /* add space between #footer #left, #footer #middle and #footer #right */
