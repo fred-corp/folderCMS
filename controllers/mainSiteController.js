@@ -120,11 +120,8 @@ function getURLLUT (navBarDict) {
 
 exports.getPage = function (req, res) {
   const page = req.params['0']
-  console.log("Page : " + page)
   const navBarDict = searchPages()
-  //console.log('navBarDict : ' + JSON.stringify(navBarDict, null, 2))
   const urlLUT = getURLLUT(navBarDict)
-  console.log('urlLUT : ' + JSON.stringify(urlLUT, null, 2))
   const pageDict = urlLUT['/' + page]
   navBarDict.active = pageDict.name
   if (pageDict) {
