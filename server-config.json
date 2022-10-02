@@ -3,6 +3,6 @@
   "siteName": "FolderCMS",
   "theme": "default",
   "port": 3000,
-  "websiteDir": "website",
+  "websiteDir": "website-example",
   "refreshInterval": 0
 }
