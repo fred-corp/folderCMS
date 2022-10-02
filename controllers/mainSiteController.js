@@ -135,10 +135,17 @@ const getURLLUT = function (_navBarDict) {
   return URLLUT
 }
 
+let navBarDict = searchPages()
+let urlLUT = getURLLUT(navBarDict)
+
+exports.refresh = function () {
+  navBarDict = searchPages()
+  urlLUT = getURLLUT(navBarDict)
+}
+
+
 exports.getPage = function (req, res) {
   const page = req.params['0']
-  const navBarDict = searchPages()
-  const urlLUT = getURLLUT(navBarDict)
   const pageDict = urlLUT['/' + page]
   if (pageDict) {
     navBarDict.active = pageDict.name
