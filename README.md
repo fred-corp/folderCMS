@@ -168,7 +168,7 @@ docker build . -t foldercms
 Then, run the container with linked port 3000, linked directory website and linked directory config :
 
 ``` zsh
-docker run -p 3000:3000 -v /path/to/website:/app/website -v /path/to/config:/app/config --name FolderCMS-site foldercms
+docker run -d -p 3000:3000 -v /path/to/website:/app/website -v /path/to/config:/app/config --name FolderCMS-site foldercms
 ```
 
 ## Todo
