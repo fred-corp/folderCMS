@@ -43,29 +43,38 @@ The ```server-config.json``` file contains the following settings :
 
 The whole point of FolderCMS is to arrange your website's pages inside of folers the way you would like them to be displayed and accessed online.
 
-The ```website-example``` folder structure is the following :
+The ```website``` folder structure should be the following :
 
-```
-website-example
+```zsh
+website
 ├── pages
 │   ├── 01-Home-none
 │   │   └── page.md
+│   │
 │   ├── 02-Folder-none
 │   │   ├── 01-Subpage 1-none
 │   │   │   └── page.md
+│   │   │
 │   │   ├── 02-Subpage 2-none
 │   │   │   └── page.md
+│   │   │
 │   │   ├── 03-Sub Folder-none
 │   │   │   ├── 01-Subpage 1-none
 │   │   │   │   └── page.md
+│   │   │   │
 │   │   │   ├── 02-Subpage 2-none
 │   │   │   │   └── page.md
+│   │   │   │
 │   │   │   └── page.md
+│   │   │
 │   │   └── page.md
+│   │
 │   ├── 03-Page-none
 │   │   └── page.md
+│   │
 │   ├── 04-About-right
 │   │   └── page.md
+│   │
 │   └── 05-Page right-right
 │       └── page.md
 │
