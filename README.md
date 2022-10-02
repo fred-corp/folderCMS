@@ -33,9 +33,11 @@ This project aims to make those tasks a bit easier.
 FolderCMS was written in Javascript and runs with NodeJS. First, clone this repo on your computer/server and install dependencies :
 
 ``` zsh
-$ git clone https://github.com/fred-corp/folderCMS
-$ cd folderCMS
-$ npm install
+git clone https://github.com/fred-corp/folderCMS
+
+cd folderCMS
+
+npm install
 ```
 
 Then, add your webpages in the ```website``` folder. The files that are included are the same files used on the demo. You can use them as a guide on how to arrange your files.
@@ -43,12 +45,28 @@ Then, add your webpages in the ```website``` folder. The files that are included
 Finally, launch the server with NodeJS !
 
 ``` zsh
-$ node server.js
+node server.js
+```
+
+## Run with Docker
+
+You can also run FolderCMS with Docker. First, build the image :
+
+``` zsh
+docker build . -t foldercms
+```
+
+Then, run the container :
+
+``` zsh
+docker run -d -p 3000:3000 --name FolderCMS-site foldercms
 ```
 
 ## Todo
 
 * Work on issues (You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on).  
+* Create live demo website
+* Create documentation
 
 Made with ❤️, lots of ☕️, and lack of 🛌
 

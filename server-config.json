@@ -2,7 +2,6 @@
   "siteTitle": "folderCMS",
   "siteName": "FolderCMS",
   "theme": "default",
-  "port": 3000,
   "websiteDir": "website-example",
   "refreshInterval": 0,
   "refreshURL": "your-own-URL-wich-should-be-a-UUID"

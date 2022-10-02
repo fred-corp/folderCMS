@@ -6,11 +6,13 @@ const config = require('./server-config.json')
 
 // const websiteDir = config.websiteDir
 
+const port = 3000
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
 app.use('/', routes)
 
-app.listen(config.port, function () {
-  console.log('server is listening on port ' + config.port)
+app.listen(port, function () {
+  console.log('server is listening on port ' + port)
 })
