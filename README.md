@@ -1,9 +1,21 @@
-# FolderCMS
+<h1 align="center">FolderCMS</h1>
 
-![icon](/website-examples/Demo/images/favicon.ico)
+<p align="center">
+	<img width="200" height="200" margin-right="100%" src="https://raw.githubusercontent.com/fred-corp/folderCMS/main/website-examples/Demo/images/favicon.ico">
+</p>
 
-An easy CMS for managing your website using markdown files placed in folders.
+<p align="center">An easy CMS for managing your website using markdown files placed in folders.</p>
+<p align="center">
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/fred-corp/folderCMS)
+![License](https://img.shields.io/github/license/fred-corp/folderCMS)
+![GitHub issues](https://img.shields.io/github/issues/fred-corp/folderCMS)
+![GitHub last commit](https://img.shields.io/github/last-commit/fred-corp/folderCMS)
+![GitHub All Releases downloads](https://img.shields.io/github/downloads/fred-corp/folderCMS/total)
+![GitHub repo size](https://img.shields.io/github/repo-size/fred-corp/folderCMS)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fred-corp/folderCMS)
+
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/fred-c
 > You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on.  
 > A demo website is on its way !
 
