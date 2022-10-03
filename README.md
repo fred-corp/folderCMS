@@ -15,8 +15,18 @@
 [![GitHub repo size](https://img.shields.io/github/repo-size/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS)
 
-> You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on.  
 > A demo website is on its way !
+
+## But why ?
+
+Well, I didn't really find a suitable solution for my website needs. [Automad](https://automad.org) was great, but lacked some flexibility I wanted to have like :
+
+* **Drop-down menus in navbar**  
+* Easily make custom themes  
+* Upload markdown files in sub-folders in a site-map like fashion
+* ... (more to come during doc phase)
+
+This project aims to make those tasks a bit easier.
 
 ## Wiki
 
@@ -30,16 +40,7 @@ Everything you need start working with FolderCMS should be explained in the [wik
 * [ ] Release v1.0
 * [ ] Work on feature requests :)
 
-## But why ?
-
-Well, I didn't really find a suitable solution for my website needs. [Automad](https://automad.org) was great, but lacked some flexibility I wanted to have like :
-
-* **Drop-down menus in navbar**  
-* Easily make custom themes  
-* Upload markdown files in sub-folders in a site-map like fashion
-* ... (more to come during doc phase)
-
-This project aims to make those tasks a bit easier.
+> You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on. 
 
 ## How to install
 
