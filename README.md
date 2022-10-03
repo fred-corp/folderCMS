@@ -7,6 +7,7 @@
 <p align="center">An easy CMS for managing your website using markdown files placed in folders.</p>
 <p align="center">
 
+[![CodeQL Workflow](https://github.com/fred-corp/folderCMS/actions/workflows/codeql.yml/badge.svg)](https://github.com/fred-corp/folderCMS/actions/workflows/codeql.yml)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/releases)
 [![License](https://img.shields.io/github/license/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/blob/main/LICENCE)
 [![GitHub issues](https://img.shields.io/github/issues/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/issues)
@@ -28,7 +29,7 @@ Well, I didn't really find a suitable solution for my website needs. [Automad](h
 
 This project aims to make those tasks a bit easier.
 
-## Wiki
+## [Wiki](https://github.com/fred-corp/folderCMS/wiki)
 
 Everything you need start working with FolderCMS should be explained in the [wiki](https://github.com/fred-corp/folderCMS/wiki).
 
@@ -40,11 +41,51 @@ Everything you need start working with FolderCMS should be explained in the [wik
 * [ ] Release v1.0
 * [ ] Work on feature requests :)
 
-> You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on. 
+> You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on.
 
 ## How to install
 
-See [How to install](https://github.com/fred-corp/folderCMS/wiki/How-to-install) on wiki.
+See [How to install](https://github.com/fred-corp/folderCMS/wiki/How-to-install) on wiki for more detailed information.
+
+### Dependencies
+
+* NPM
+
+``` zsh
+git clone https://github.com/fred-corp/folderCMS
+
+cd folderCMS
+```
+
+Add your webpages in the ```website``` folder. You can find example websites in the ```website-examples``` folder.
+
+### Run with Node.JS
+
+``` zsh
+npm install
+
+node server.js
+```
+
+> Note : Alternatively, you can use ```npm ci``` to install dependencies from the lock file.
+>
+> ``` zsh
+> npm ci
+>
+> node server.js
+> ```
+
+### Run with Docker
+
+``` zsh
+docker build . -t foldercms
+```
+
+Then, run the container with linked port 3000, linked directory website and linked directory config :
+
+``` zsh
+docker run -d -p 3000:3000 -v /path/to/website:/app/website -v /path/to/config:/app/config --name FolderCMS-site foldercms
+```
 
 ## How to use
 
