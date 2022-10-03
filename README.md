@@ -7,13 +7,13 @@
 <p align="center">An easy CMS for managing your website using markdown files placed in folders.</p>
 <p align="center">
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/fred-corp/folderCMS)
-![License](https://img.shields.io/github/license/fred-corp/folderCMS)
-![GitHub issues](https://img.shields.io/github/issues/fred-corp/folderCMS)
-![GitHub last commit](https://img.shields.io/github/last-commit/fred-corp/folderCMS)
-![GitHub All Releases downloads](https://img.shields.io/github/downloads/fred-corp/folderCMS/total)
-![GitHub repo size](https://img.shields.io/github/repo-size/fred-corp/folderCMS)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fred-corp/folderCMS)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/releases)
+[![License](https://img.shields.io/github/license/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/blob/main/LICENCE)
+[![GitHub issues](https://img.shields.io/github/issues/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/issues)
+[![GitHub last commit](https://img.shields.io/github/last-commit/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/commits/main)
+[![GitHub All Releases downloads](https://img.shields.io/github/downloads/fred-corp/folderCMS/total)](https://github.com/fred-corp/folderCMS/releases)
+[![GitHub repo size](https://img.shields.io/github/repo-size/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS)
 
 > You can look at the [Project page](https://github.com/users/fred-corp/projects/1/views/4) for this repo to see what's going on.  
 > A demo website is on its way !
