@@ -57,7 +57,7 @@ git clone https://github.com/fred-corp/folderCMS
 cd folderCMS
 ```
 
-Add your webpages in the ```website``` folder. You can find example websites in the ```website-examples``` folder.
+Create a `website` folder at the root of `folderCMS` and add your webpages in side it. You can find example websites in the `website-examples` folder.
 
 ### Run with Node.JS
 

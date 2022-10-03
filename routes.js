@@ -14,7 +14,7 @@ router.get('/*', function (req, res) {
   if (req.params['0'].endsWith('.ico')){
     // get only the filename from the URL
     const filename = req.params['0'].split('/').pop()
-    res.sendFile(filename, { root: config.websiteDir+'/images' })
+    res.sendFile(filename, { root: 'website/images' })
 
   } else if (req.params['0'].endsWith('.css')) {
     // get only the filename from the URL

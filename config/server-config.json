@@ -1,8 +1,5 @@
 {
   "siteTitle": "folderCMS",
-  "siteName": "FolderCMS",
   "theme": "default",
-  "websiteDir": "website",
-  "refreshInterval": 0,
   "refreshURL": "your-own-URL-wich-should-be-a-UUID"
 }

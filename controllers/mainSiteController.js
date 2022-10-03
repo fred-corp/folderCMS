@@ -20,7 +20,7 @@ const isEmptyObject = (obj) => {
 const dirNameRegex = /(\d\d)-(.*)-(.*)/
 
 function searchPages () {
-  const website = directoryTree(config.websiteDir+'/pages', { attributes: ['type', 'extension'], normalizePath: true })
+  const website = directoryTree('website/pages', { attributes: ['type', 'extension'], normalizePath: true })
 
   const navBarDict = {}
   navBarDict.active = ""
@@ -149,20 +149,20 @@ exports.getPage = function (req, res) {
   const pageDict = urlLUT['/' + page]
   if (pageDict) {
     navBarDict.active = pageDict.name
-    const siteName = marked.parse(fs.readFileSync(config.websiteDir+'/title' + '/page.md').toString())
+    const siteName = marked.parse(fs.readFileSync('website/title' + '/page.md').toString())
     const html = marked.parse(fs.readFileSync(pageDict.path + '/page.md').toString())
     const footer = {}
-    footer.left = marked.parse(fs.readFileSync(config.websiteDir+'/footer/left.md').toString())
-    footer.middle = marked.parse(fs.readFileSync(config.websiteDir+'/footer/middle.md').toString())
-    footer.right = marked.parse(fs.readFileSync(config.websiteDir+'/footer/right.md').toString())
+    footer.left = marked.parse(fs.readFileSync('website/footer/left.md').toString())
+    footer.middle = marked.parse(fs.readFileSync('website/footer/middle.md').toString())
+    footer.right = marked.parse(fs.readFileSync('website/footer/right.md').toString())
     res.render('mainSite.ejs', { sitename : siteName, navBar: navBarDict, config: config, content: html , footer: footer})
   } else {
-    const siteName = marked.parse(fs.readFileSync(config.websiteDir+'/title' + '/page.md').toString())
-    const html = marked.parse(fs.readFileSync(config.websiteDir + '/404/page.md').toString())
+    const siteName = marked.parse(fs.readFileSync('website/title' + '/page.md').toString())
+    const html = marked.parse(fs.readFileSync('website/404/page.md').toString())
     const footer = {}
-    footer.left = marked.parse(fs.readFileSync(config.websiteDir+'/footer/left.md').toString())
-    footer.middle = marked.parse(fs.readFileSync(config.websiteDir+'/footer/middle.md').toString())
-    footer.right = marked.parse(fs.readFileSync(config.websiteDir+'/footer/right.md').toString())
+    footer.left = marked.parse(fs.readFileSync('website/footer/left.md').toString())
+    footer.middle = marked.parse(fs.readFileSync('website/footer/middle.md').toString())
+    footer.right = marked.parse(fs.readFileSync('website/footer/right.md').toString())
     res.render('mainSite.ejs', { sitename : siteName, navBar: navBarDict, config: config, content: html , footer: footer})
   }
 }
