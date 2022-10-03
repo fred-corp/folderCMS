@@ -6,6 +6,16 @@ const config = require('./config/server-config.json')
 
 // const websiteDir = config.websiteDir
 
+// set up rate limiter: maximum of five requests per minute
+const RateLimit = require('express-rate-limit')
+
+
+// apply rate limiter to all requests
+app.use(RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 240, // limit each IP to 240 requests per windowMs
+}))
+
 const port = 3000
 
 app.use(express.urlencoded({ extended: true }))
