@@ -2,4 +2,5 @@
 
 # FolderCMS
 
-A simple CMS for static websites
+An easy CMS for managing your website  
+using markdown files placed in folders.
