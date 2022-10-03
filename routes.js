@@ -4,6 +4,16 @@ const config = require('./config/server-config.json')
 
 const mainSiteController = require('./controllers/mainSiteController')
 
+// set up rate limiter: maximum of five requests per minute
+var RateLimit = require('express-rate-limit');
+var limiter = new RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 12, // limit each IP to 12 requests per windowMs
+})
+
+// apply rate limiter to all requests
+router.use(limiter);
+
 // redirect "/"" to "/home"
 router.get('/', function (req, res) {
   res.redirect('/Home')
