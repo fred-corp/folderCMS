@@ -138,9 +138,10 @@ const getURLLUT = function (_navBarDict) {
 let navBarDict = searchPages()
 let urlLUT = getURLLUT(navBarDict)
 
-exports.refresh = function () {
+exports.refreshLUTs = function (req, res) {
   navBarDict = searchPages()
   urlLUT = getURLLUT(navBarDict)
+  res.status(200).json({ ok: true })
 }
 
 
@@ -165,4 +166,8 @@ exports.getPage = function (req, res) {
     footer.right = marked.parse(fs.readFileSync('website/footer/right.md').toString())
     res.render('mainSite.ejs', { sitename : siteName, navBar: navBarDict, config: config, content: html , footer: footer})
   }
+}
+
+exports.settings = function (req, res) {
+  res.render('settings.ejs', { config: config })
 }

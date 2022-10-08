@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= config.siteTitle %> settings</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  </head>
+  <body>
+    <button id="reloadLUTs">Reload LUTs</button>
+    <p id="lutUpdated"></p>
+
+    <a href="/">Back to website</a>
+
+    <script>
+      var reloadLUTs = document.getElementById('reloadLUTs');
+      var lutUpdated = document.getElementById('lutUpdated');
+
+      reloadLUTs.addEventListener('click', function() {
+        fetch('/<%= config.settingsURL %>'+'/reloadLUTs', {
+          method: 'POST'
+        }).then(function(response) {
+          console.log(response);
+          if (response.ok) {
+            lutUpdated.innerHTML = 'LUTs updated';
+          }
+          else {
+            lutUpdated.innerHTML = 'Failed to update LUTs';
+          }
+        });
+      });
+
+
+    </script>
+  </body>
+</html>

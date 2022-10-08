@@ -9,6 +9,9 @@ router.get('/', function (req, res) {
   res.redirect('/Home')
 })
 
+// handle post request for refreshing LUTs
+router.post('/' + config.settingsURL + '/reloadLUTs', mainSiteController.refreshLUTs)
+
 // redirect all URLs that are not .ico and .css files to mainsiteController.getPage
 router.get('/*', function (req, res) {
   if (req.params['0'].endsWith('.ico')){
@@ -21,8 +24,7 @@ router.get('/*', function (req, res) {
     const filename = req.params['0'].split('/').pop()
     res.sendFile('themes/' + filename, { root: 'public' })
   } else if (req.params['0'] == config.settingsURL) {
-    mainSiteController.refresh()
-    res.send('Website LUTs refreshed ! <br> <a href="/">Go back to the website</a>')
+    mainSiteController.settings(req, res)
   } else {
     mainSiteController.getPage(req, res)
   }
