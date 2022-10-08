@@ -8,7 +8,7 @@
 <p align="center">
 
 [![CodeQL Workflow](https://github.com/fred-corp/folderCMS/actions/workflows/codeql.yml/badge.svg)](https://github.com/fred-corp/folderCMS/actions/workflows/codeql.yml)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/releases)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/releases)
 [![License](https://img.shields.io/github/license/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/blob/main/LICENCE)
 [![GitHub issues](https://img.shields.io/github/issues/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/issues)
 [![GitHub last commit](https://img.shields.io/github/last-commit/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/commits/main)
