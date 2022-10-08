@@ -20,7 +20,7 @@ router.get('/*', function (req, res) {
     // get only the filename from the URL
     const filename = req.params['0'].split('/').pop()
     res.sendFile('themes/' + filename, { root: 'public' })
-  } else if (req.params['0'] == config.refreshURL) {
+  } else if (req.params['0'] == config.settingsURL) {
     mainSiteController.refresh()
     res.send('Website LUTs refreshed ! <br> <a href="/">Go back to the website</a>')
   } else {
