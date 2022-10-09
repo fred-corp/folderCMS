@@ -1,13 +1,23 @@
 const express = require('express')
 const router = express.Router()
-const config = require('./config/server-config.json')
+const baseConfig = require('./config/server-config.json')
+const configModel = require('./models/configModel')
 
 const mainSiteController = require('./controllers/mainSiteController')
+
+// create a new configModel object
+const config = new configModel(baseConfig)
+
+// use bodyparser
+router.use(express.json())
 
 // redirect "/"" to "/home"
 router.get('/', function (req, res) {
   res.redirect('/Home')
 })
+
+// handle post requests to config update
+router.post('/' + config.settingsURL + '/config', mainSiteController.config)
 
 // handle post request for refreshing LUTs
 router.post('/' + config.settingsURL + '/reloadLUTs', mainSiteController.refreshLUTs)

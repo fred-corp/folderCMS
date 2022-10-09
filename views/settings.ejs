@@ -9,12 +9,56 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
   </head>
   <body>
+    <h1><%= config.siteTitle %> settings</h1>
+    <h2>Website Config</h2>
+    <form id="config">
+      <label for="siteTitle">Site title</label>
+      <input type="text" name="siteTitle" value="<%= config.siteTitle %>"><br>
+      <label for="siteTheme">Theme</label>
+      <select name="theme">
+        <option value="default" <%= config.theme === 'default' ? 'selected' : '' %>>Default</option>
+      </select>
+      <br>
+      <label for="settingsURL">Settings URL</label>
+      <input type="text" name="settingsURL" value="<%= config.settingsURL %>"><br>
+      <input type="submit" value="Save">
+    </form>
+    <p id="confUpdated"></p>
+    <h2>Reload reload website LUTs</h2>
     <button id="reloadLUTs">Reload LUTs</button>
     <p id="lutUpdated"></p>
 
     <a href="/">Back to website</a>
 
     <script>
+      // handle config form
+      const configForm = document.getElementById('config')
+      configForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const formData = new FormData(configForm)
+        const data = Object.fromEntries(formData.entries())
+        fetch('/<%= config.settingsURL %>/config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(res => {
+          if (res.ok) {
+            document.getElementById('confUpdated').innerHTML = 'Config updated, reloading in 3 seconds.'
+          } else {
+            document.getElementById('confUpdated').innerHTML = 'Config update failed, reloading in 3 seconds.'
+          }
+          setTimeout(() => {
+            document.getElementById('confUpdated').innerHTML = ''
+            window.location.href = '/'+data.settingsURL
+          }, 3000)
+        })
+      })
+
+
+
       var reloadLUTs = document.getElementById('reloadLUTs');
       var lutUpdated = document.getElementById('lutUpdated');
 

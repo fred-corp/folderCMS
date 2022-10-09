@@ -1,8 +1,12 @@
-const config = require('../config/server-config.json')
+const baseConfig = require('../config/server-config.json')
+const configModel = require('../models/configModel')
 // const mainSiteModel = require('../models/mainSiteModel')
 const fs = require('fs')
 const directoryTree = require('directory-tree')
 const marked = require('marked')
+
+// create a new configModel object
+const config = new configModel(baseConfig)
 
 // const navBarDict = { active: 0, items: [{ type: 'page', name: 'Home', URL: '/', path: 'website/01.Home/', float: 'none' }, { type: 'page', name: 'Test', URL: '/test', path: 'website/01.Home/' }, {type: 'page', name: 'About', URL: '/about', path: 'website/03.About/' }] }
 
@@ -137,6 +141,11 @@ const getURLLUT = function (_navBarDict) {
 
 let navBarDict = searchPages()
 let urlLUT = getURLLUT(navBarDict)
+
+exports.config = function (req, res) {
+  config.writeConfig(req.body)
+  res.status(200).json({ ok: true })
+}
 
 exports.refreshLUTs = function (req, res) {
   navBarDict = searchPages()
