@@ -1,4 +1,4 @@
-const baseConfig = require('../config/server-config.json')
+const baseConfig = require('../website/config/server-config.json')
 const configModel = require('../models/configModel')
 // const mainSiteModel = require('../models/mainSiteModel')
 const fs = require('fs')
