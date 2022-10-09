@@ -59,7 +59,7 @@ cd folderCMS
 mkdir website
 ```
 
-The last command creates a `website` folder at the root of `folderCMS`, in which you should add your webpages. You can find example websites in the `website-examples` folder.
+The last command creates a `website` folder at the root of `folderCMS`, in which you should add your webpages following the correct directory convention (wiki link to come). You can find example websites in the `website-examples` folder.
 
 ### Run with Node.JS
 
@@ -86,7 +86,7 @@ docker build . -t foldercms
 Then, run the container with linked port 3000, linked directory website and linked directory config :
 
 ``` zsh
-docker run -d -p 3000:3000 -v /path/to/website:/app/website -v /path/to/config:/app/config --name FolderCMS-site foldercms
+docker run -d -p 3000:3000 -v /path/to/website:/app/website -v --name FolderCMS-site foldercms
 ```
 
 ## How to use
