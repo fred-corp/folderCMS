@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= config.siteTitle %> settings</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  </head>
+  <body>
+    <h1><%= config.siteTitle %> settings</h1>
+    <h2>Website Config</h2>
+    <form id="config">
+      <label for="siteTitle">Site title</label>
+      <input type="text" name="siteTitle" value="<%= config.siteTitle %>"><br>
+      <label for="siteTheme">Theme</label>
+      <select name="theme">
+        <option value="default" <%= config.theme === 'default' ? 'selected' : '' %>>Default</option>
+      </select>
+      <br>
+      <label for="settingsURL">Settings URL</label>
+      <input id="settingsURL" type="text" name="settingsURL" value="<%= config.settingsURL %>">
+      <button name="uuidGen" id="uuidGen">Suggest UUID for URL</button>
+      <button name="cancelUuid" id="cancelUuid">Revert</button><br>
+      <input type="submit" value="Save">
+    </form>
+    <p id="confUpdated"></p>
+    <h2>Reload reload website LUTs</h2>
+    <button id="reloadLUTs">Reload LUTs</button>
+    <p id="lutUpdated"></p>
+    <h2>Create website folder backup</h2>
+    <button id="downloadWebsite">Download</button>
+    <p id="downloadUpdated"></p>
+    <h2>Updload website folder backup</h2>
+    <form action="<%= config.settingsURL %>/uploadWebsite" method="post" enctype="multipart/form-data">
+      <input type="file" name="websiteZip" id="websiteZip">
+      <input type="submit" value="Upload">
+    </form>
+    <p id="uploadUpdated"></p>
+
+    <a href="/">Back to website</a>
+
+    <script>
+      // handle config form
+      const configForm = document.getElementById('config')
+      configForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const formData = new FormData(configForm)
+        const data = Object.fromEntries(formData.entries())
+        fetch('/<%= config.settingsURL %>/config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(res => {
+          if (res.ok) {
+            document.getElementById('confUpdated').innerHTML = 'Config updated, reloading in 3 seconds.'
+          } else {
+            document.getElementById('confUpdated').innerHTML = 'Config update failed, reloading in 3 seconds.'
+          }
+          setTimeout(() => {
+            document.getElementById('confUpdated').innerHTML = ''
+            window.location.href = '/'+data.settingsURL
+          }, 3000)
+        })
+      })
+
+      // handle uuid generation
+      const uuidGen = document.getElementById('uuidGen')
+      const settingsURLinput = document.getElementById('settingsURL')
+      
+      uuidGen.addEventListener('click', (e) => {
+        e.preventDefault()
+        uuid = crypto.randomUUID()
+        settingsURLinput.value = uuid
+      })
+
+      const cancelUuid = document.getElementById('cancelUuid')
+      cancelUuid.addEventListener('click', (e) => {
+        e.preventDefault()
+        settingsURLinput.value = '<%= config.settingsURL %>'
+      })
+
+      // handle reload LUTs
+      var reloadLUTs = document.getElementById('reloadLUTs')
+      var lutUpdated = document.getElementById('lutUpdated')
+
+      reloadLUTs.addEventListener('click', function() {
+        fetch('/<%= config.settingsURL %>'+'/reloadLUTs', {
+          method: 'POST'
+        }).then(function(response) {
+          if (response.ok) {
+            lutUpdated.innerHTML = 'LUTs updated'
+          }
+          else {
+            lutUpdated.innerHTML = 'Failed to update LUTs'
+          }
+        })
+      })
+
+      // handle download website
+      var downloadWebsite = document.getElementById('downloadWebsite')
+      var downloadUpdated = document.getElementById('downloadUpdated')
+
+      downloadWebsite.addEventListener('click', function() {
+        downloadUpdated.innerHTML = 'Website download started'
+        setTimeout(() => {
+          downloadUpdated.innerHTML = ''
+        }, 3000)
+        window.location.href = '/<%= config.settingsURL %>'+'/downloadWebsite'
+      })
+
+      // handle upload website
+      var uploadWebsite = document.getElementById('uploadWebsite')
+      var uploadUpdated = document.getElementById('uploadUpdated')
+      
+      // uploadWebsite.addEventListener('submit', function(e) {
+      //   e.preventDefault()
+      //   const formData = new FormData(uploadWebsite)
+      //   const data = Object.fromEntries(formData.entries())
+      //   console.log(data)
+      //   fetch('/<%= config.settingsURL %>'+'/uploadWebsite', {
+      //     method: 'POST',
+      //     body: formData
+      //   }).then(function(response) {
+      //     if (response.ok) {
+      //       uploadUpdated.innerHTML = 'Website uploaded'
+      //     }
+      //     else {
+      //       uploadUpdated.innerHTML = 'Failed to upload website'
+      //     }
+      //   })
+      // })
+
+    </script>
+  </body>
+</html>

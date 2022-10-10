@@ -1,14 +1,12 @@
 const express = require('express')
 const app = express()
 const routes = require('./routes')
-const config = require('./config/server-config.json')
 // const { connected } = require('process')
 
 // const websiteDir = config.websiteDir
 
 // set up rate limiter: maximum of five requests per minute
 const RateLimit = require('express-rate-limit')
-
 
 // apply rate limiter to all requests
 app.use(RateLimit({
