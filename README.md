@@ -6,15 +6,15 @@
 
 <p align="center">An easy CMS for managing your website using markdown files placed in folders.</p>
 <p align="center">
-
-[![CodeQL Workflow](https://github.com/fred-corp/folderCMS/actions/workflows/codeql.yml/badge.svg)](https://github.com/fred-corp/folderCMS/actions/workflows/codeql.yml)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/releases)
-[![License](https://img.shields.io/github/license/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/blob/main/LICENCE)
-[![GitHub issues](https://img.shields.io/github/issues/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/issues)
-[![GitHub last commit](https://img.shields.io/github/last-commit/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS/commits/main)
-[![GitHub All Releases downloads](https://img.shields.io/github/downloads/fred-corp/folderCMS/total)](https://github.com/fred-corp/folderCMS/releases)
-[![GitHub repo size](https://img.shields.io/github/repo-size/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fred-corp/folderCMS)](https://github.com/fred-corp/folderCMS)
+<a href="https://github.com/fred-corp/folderCMS/actions/workflows/codeql.yml"><img src="https://github.com/fred-corp/folderCMS/actions/workflows/codeql.yml/badge.svg" alt="CodeQL Workflow"></a>
+<a href="https://github.com/fred-corp/folderCMS/releases"><img src="https://img.shields.io/github/v/tag/fred-corp/folderCMS" alt="GitHub tag (latest by date"></a>
+<a href="https://github.com/fred-corp/folderCMS/blob/main/LICENCE"><img src="https://img.shields.io/github/license/fred-corp/folderCMS" alt="GitHub license"></a>
+<a href="https://github.com/fred-corp/folderCMS/issues"><img src="https://img.shields.io/github/issues/fred-corp/folderCMS" alt="GitHub issues"></a>
+<a href="https://github.com/fred-corp/folderCMS/commits/main"><img src="https://img.shields.io/github/last-commit/fred-corp/folderCMS" alt="GitHub last commit"></a>
+<a href="https://github.com/fred-corp/folderCMS/releases"><img src="https://img.shields.io/github/downloads/fred-corp/folderCMS/total" alt="GitHub All releases downloads"></a>
+<a href="https://github.com/fred-corp/folderCMS"><img src="https://img.shields.io/github/repo-size/fred-corp/folderCMS" alt="GitHub repo size"></a>
+<a href="https://github.com/fred-corp/folderCMS"><img src="https://img.shields.io/github/languages/code-size/fred-corp/folderCMS" alt="GitHub code size in bytes"></a>
+</p>
 
 > A demo website is on its way !
 
@@ -59,7 +59,7 @@ cd folderCMS
 mkdir website
 ```
 
-The last command creates a `website` folder at the root of `folderCMS`, in which you should add your webpages. You can find example websites in the `website-examples` folder.
+The last command creates a `website` folder at the root of `folderCMS`, in which you should add your webpages following the correct directory convention (wiki link to come). You can find example websites in the `website-examples` folder.
 
 ### Run with Node.JS
 
@@ -86,7 +86,7 @@ docker build . -t foldercms
 Then, run the container with linked port 3000, linked directory website and linked directory config :
 
 ``` zsh
-docker run -d -p 3000:3000 -v /path/to/website:/app/website -v /path/to/config:/app/config --name FolderCMS-site foldercms
+docker run -d -p 3000:3000 -v /path/to/website:/app/website -v --name FolderCMS-site foldercms
 ```
 
 ## How to use

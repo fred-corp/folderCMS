@@ -1,8 +1,14 @@
-const config = require('../config/server-config.json')
+const baseConfig = require('../website/config/server-config.json')
+const configModel = require('../models/configModel')
 // const mainSiteModel = require('../models/mainSiteModel')
 const fs = require('fs')
 const directoryTree = require('directory-tree')
 const marked = require('marked')
+const AdmZip = require("adm-zip");
+const formidable = require('formidable');
+
+// create a new configModel object
+const config = new configModel(baseConfig)
 
 // const navBarDict = { active: 0, items: [{ type: 'page', name: 'Home', URL: '/', path: 'website/01.Home/', float: 'none' }, { type: 'page', name: 'Test', URL: '/test', path: 'website/01.Home/' }, {type: 'page', name: 'About', URL: '/about', path: 'website/03.About/' }] }
 
@@ -138,9 +144,15 @@ const getURLLUT = function (_navBarDict) {
 let navBarDict = searchPages()
 let urlLUT = getURLLUT(navBarDict)
 
-exports.refresh = function () {
+exports.config = function (req, res) {
+  config.writeConfig(req.body)
+  res.status(200).json({ ok: true })
+}
+
+exports.refreshLUTs = function (req, res) {
   navBarDict = searchPages()
   urlLUT = getURLLUT(navBarDict)
+  res.status(200).json({ ok: true })
 }
 
 
@@ -165,4 +177,82 @@ exports.getPage = function (req, res) {
     footer.right = marked.parse(fs.readFileSync('website/footer/right.md').toString())
     res.render('mainSite.ejs', { sitename : siteName, navBar: navBarDict, config: config, content: html , footer: footer})
   }
+}
+
+exports.settings = function (req, res) {
+  res.render('settings.ejs', { config: config })
+}
+
+exports.downloadWebsite = function (req, res) {
+  const zip = new AdmZip()
+  zip.addLocalFolder('website')
+  // save zip to disk
+  zip.writeZip('website.zip')
+  res.download('website.zip', function (err) {
+    if (err) {
+      console.log(err)
+    } else {
+      // delete zip file
+      fs.unlink('website.zip', (err) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+    }
+  })
+  res.status(200)
+}
+
+exports.uploadWebsite = function (req, res) {
+  const form = new formidable.IncomingForm()
+  form.uploadDir = 'uploads'
+  form.parse(req, function (err, fields, files) {
+    if (err) {
+      console.log(err)
+    } else {
+      if (files.websiteZip.originalFilename == 'website.zip' && files.websiteZip.mimetype == 'application/zip') {
+        var oldpath = files.websiteZip.filepath;
+        var newpath = './uploads/' + files.websiteZip.originalFilename;
+        fs.rename(oldpath, newpath, function (err) {
+          if (err) {
+            console.log(err)
+          }
+          else {
+            console.log('File uploaded and moved!');
+            const zip = new AdmZip(newpath)
+            zip.extractAllTo('./newWebsite', true)
+            fs.unlink(newpath, (err) => {
+              if (err) {
+                console.log(err)
+              }
+              else {
+                const newWebsiteFolder = fs.readdirSync('./newWebsite')
+                if (newWebsiteFolder.includes('website')) {
+                  const newWebsiteFolderContent = fs.readdirSync('./newWebsite/website')
+                  if (newWebsiteFolderContent.includes('404') && newWebsiteFolderContent.includes('config') && newWebsiteFolderContent.includes('files') && newWebsiteFolderContent.includes('footer') && newWebsiteFolderContent.includes('images') && newWebsiteFolderContent.includes('pages') && newWebsiteFolderContent.includes('title')) {
+                    // delete the old website folder
+                    fs.rmSync('./website', { recursive: true })
+                    // move the new website folder to the root
+                    fs.renameSync('./newWebsite/website', './website')
+                    // delete the new website folder
+                    fs.rmSync('./newWebsite', { recursive: true })
+                    // refresh the LUTs
+                    navBarDict = searchPages()
+                    urlLUT = getURLLUT(navBarDict)
+                    // update config
+                    config.readConfig()
+                    res.redirect('/'+config.settingsURL)
+                  } else {
+                    // delete the new website folder
+                    fs.rmSync('./newWebsite', { recursive: true })
+                    res.status(400).json({ ok: false, error: 'Invalid website structure' })
+                  }
+                }
+              }
+            })
+          }
+        })
+      }
+    }
+  })
 }
