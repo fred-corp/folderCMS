@@ -183,7 +183,6 @@ exports.settings = function (req, res) {
 }
 
 exports.downloadWebsite = function (req, res) {
-  console.log('downloadWebsite')
   const zip = new AdmZip()
   zip.addLocalFolder('website')
   // save zip to disk
@@ -192,7 +191,6 @@ exports.downloadWebsite = function (req, res) {
     if (err) {
       console.log(err)
     } else {
-      console.log('downloaded')
       // delete zip file
       fs.unlink('website.zip', (err) => {
         if (err) {
