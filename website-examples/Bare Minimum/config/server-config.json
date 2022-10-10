@@ -1,0 +1,5 @@
+{
+  "siteTitle": "folderCMS",
+  "theme": "default",
+  "settingsURL": "your-own-URL-wich-should-be-a-UUID"
+}

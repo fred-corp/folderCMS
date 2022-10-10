@@ -1,13 +1,33 @@
 const express = require('express')
 const router = express.Router()
-const config = require('./config/server-config.json')
+const baseConfig = require('./website/config/server-config.json')
+const configModel = require('./models/configModel')
 
 const mainSiteController = require('./controllers/mainSiteController')
+
+// create a new configModel object
+const config = new configModel(baseConfig)
+
+// use bodyparser
+router.use(express.json())
 
 // redirect "/"" to "/home"
 router.get('/', function (req, res) {
   res.redirect('/Home')
 })
+
+// handle post requests to config update
+router.post('/' + config.settingsURL + '/config', mainSiteController.config)
+
+// handle post request for refreshing LUTs
+router.post('/' + config.settingsURL + '/reloadLUTs', mainSiteController.refreshLUTs)
+
+// handle get request for downloading website
+router.get('/' + config.settingsURL + '/downloadWebsite', mainSiteController.downloadWebsite)
+
+// handle post request for uploading website
+router.post('/' + config.settingsURL + '/uploadWebsite', mainSiteController.uploadWebsite)
+
 
 // redirect all URLs that are not .ico and .css files to mainsiteController.getPage
 router.get('/*', function (req, res) {
@@ -20,9 +40,8 @@ router.get('/*', function (req, res) {
     // get only the filename from the URL
     const filename = req.params['0'].split('/').pop()
     res.sendFile('themes/' + filename, { root: 'public' })
-  } else if (req.params['0'] == config.refreshURL) {
-    mainSiteController.refresh()
-    res.send('Website LUTs refreshed ! <br> <a href="/">Go back to the website</a>')
+  } else if (req.params['0'] == config.settingsURL) {
+    mainSiteController.settings(req, res)
   } else {
     mainSiteController.getPage(req, res)
   }
