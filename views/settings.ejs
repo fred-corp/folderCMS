@@ -32,6 +32,12 @@
     <h2>Download website folder</h2>
     <button id="downloadWebsite">Download</button>
     <p id="downloadUpdated"></p>
+    <h2>Updload website .zip</h2>
+    <form action="<%= config.settingsURL %>/uploadWebsite" method="post" enctype="multipart/form-data">
+      <input type="file" name="websiteZip" id="websiteZip">
+      <input type="submit" value="Upload">
+    </form>
+    <p id="uploadUpdated"></p>
 
     <a href="/">Back to website</a>
 
@@ -107,6 +113,27 @@
         window.location.href = '/<%= config.settingsURL %>'+'/downloadWebsite'
       })
 
+      // handle upload website
+      var uploadWebsite = document.getElementById('uploadWebsite')
+      var uploadUpdated = document.getElementById('uploadUpdated')
+      
+      // uploadWebsite.addEventListener('submit', function(e) {
+      //   e.preventDefault()
+      //   const formData = new FormData(uploadWebsite)
+      //   const data = Object.fromEntries(formData.entries())
+      //   console.log(data)
+      //   fetch('/<%= config.settingsURL %>'+'/uploadWebsite', {
+      //     method: 'POST',
+      //     body: formData
+      //   }).then(function(response) {
+      //     if (response.ok) {
+      //       uploadUpdated.innerHTML = 'Website uploaded'
+      //     }
+      //     else {
+      //       uploadUpdated.innerHTML = 'Failed to upload website'
+      //     }
+      //   })
+      // })
 
     </script>
   </body>

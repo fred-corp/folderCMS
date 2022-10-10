@@ -5,6 +5,7 @@ const fs = require('fs')
 const directoryTree = require('directory-tree')
 const marked = require('marked')
 const AdmZip = require("adm-zip");
+const formidable = require('formidable');
 
 // create a new configModel object
 const config = new configModel(baseConfig)
@@ -200,4 +201,60 @@ exports.downloadWebsite = function (req, res) {
     }
   })
   res.status(200)
+}
+
+exports.uploadWebsite = function (req, res) {
+  const form = new formidable.IncomingForm()
+  form.uploadDir = 'uploads'
+  form.parse(req, function (err, fields, files) {
+    if (err) {
+      console.log(err)
+    } else {
+      if (files.websiteZip.originalFilename == 'website.zip' && files.websiteZip.mimetype == 'application/zip') {
+        var oldpath = files.websiteZip.filepath;
+        var newpath = './uploads/' + files.websiteZip.originalFilename;
+        fs.rename(oldpath, newpath, function (err) {
+          if (err) {
+            console.log(err)
+          }
+          else {
+            console.log('File uploaded and moved!');
+            const zip = new AdmZip(newpath)
+            zip.extractAllTo('./newWebsite', true)
+            fs.unlink(newpath, (err) => {
+              if (err) {
+                console.log(err)
+              }
+              else {
+                const newWebsiteFolder = fs.readdirSync('./newWebsite')
+                if (newWebsiteFolder.includes('website')) {
+                  const newWebsiteFolderContent = fs.readdirSync('./newWebsite/website')
+                  console.log(newWebsiteFolderContent)
+                  if (newWebsiteFolderContent.includes('404') && newWebsiteFolderContent.includes('config') && newWebsiteFolderContent.includes('files') && newWebsiteFolderContent.includes('footer') && newWebsiteFolderContent.includes('images') && newWebsiteFolderContent.includes('pages') && newWebsiteFolderContent.includes('title')) {
+                    console.log('Website is valid')
+                    // delete the old website folder
+                    fs.rmSync('./website', { recursive: true })
+                    // move the new website folder to the root
+                    fs.renameSync('./newWebsite/website', './website')
+                    // delete the new website folder
+                    fs.rmSync('./newWebsite', { recursive: true })
+                    // refresh the LUTs
+                    navBarDict = searchPages()
+                    urlLUT = getURLLUT(navBarDict)
+                    // update config
+                    config.readConfig()
+                    res.redirect('/'+config.settingsURL)
+                  } else {
+                    // delete the new website folder
+                    fs.rmSync('./newWebsite', { recursive: true })
+                    res.status(400).json({ ok: false, error: 'Invalid website structure' })
+                  }
+                }
+              }
+            })
+          }
+        })
+      }
+    }
+  })
 }
