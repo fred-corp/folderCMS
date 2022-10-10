@@ -4,6 +4,7 @@ const configModel = require('../models/configModel')
 const fs = require('fs')
 const directoryTree = require('directory-tree')
 const marked = require('marked')
+const AdmZip = require("adm-zip");
 
 // create a new configModel object
 const config = new configModel(baseConfig)
@@ -179,4 +180,26 @@ exports.getPage = function (req, res) {
 
 exports.settings = function (req, res) {
   res.render('settings.ejs', { config: config })
+}
+
+exports.downloadWebsite = function (req, res) {
+  console.log('downloadWebsite')
+  const zip = new AdmZip()
+  zip.addLocalFolder('website')
+  // save zip to disk
+  zip.writeZip('website.zip')
+  res.download('website.zip', function (err) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('downloaded')
+      // delete zip file
+      fs.unlink('website.zip', (err) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+    }
+  })
+  res.status(200)
 }

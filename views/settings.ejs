@@ -29,6 +29,9 @@
     <h2>Reload reload website LUTs</h2>
     <button id="reloadLUTs">Reload LUTs</button>
     <p id="lutUpdated"></p>
+    <h2>Download website folder</h2>
+    <button id="downloadWebsite">Download</button>
+    <p id="downloadUpdated"></p>
 
     <a href="/">Back to website</a>
 
@@ -59,6 +62,7 @@
         })
       })
 
+      // handle uuid generation
       const uuidGen = document.getElementById('uuidGen')
       const settingsURLinput = document.getElementById('settingsURL')
       
@@ -74,23 +78,34 @@
         settingsURLinput.value = '<%= config.settingsURL %>'
       })
 
-
-      var reloadLUTs = document.getElementById('reloadLUTs');
-      var lutUpdated = document.getElementById('lutUpdated');
+      // handle reload LUTs
+      var reloadLUTs = document.getElementById('reloadLUTs')
+      var lutUpdated = document.getElementById('lutUpdated')
 
       reloadLUTs.addEventListener('click', function() {
         fetch('/<%= config.settingsURL %>'+'/reloadLUTs', {
           method: 'POST'
         }).then(function(response) {
-          console.log(response);
           if (response.ok) {
-            lutUpdated.innerHTML = 'LUTs updated';
+            lutUpdated.innerHTML = 'LUTs updated'
           }
           else {
-            lutUpdated.innerHTML = 'Failed to update LUTs';
+            lutUpdated.innerHTML = 'Failed to update LUTs'
           }
-        });
-      });
+        })
+      })
+
+      // handle download website
+      var downloadWebsite = document.getElementById('downloadWebsite')
+      var downloadUpdated = document.getElementById('downloadUpdated')
+
+      downloadWebsite.addEventListener('click', function() {
+        downloadUpdated.innerHTML = 'Website download started'
+        setTimeout(() => {
+          downloadUpdated.innerHTML = ''
+        }, 3000)
+        window.location.href = '/<%= config.settingsURL %>'+'/downloadWebsite'
+      })
 
 
     </script>

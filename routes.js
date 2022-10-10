@@ -22,6 +22,9 @@ router.post('/' + config.settingsURL + '/config', mainSiteController.config)
 // handle post request for refreshing LUTs
 router.post('/' + config.settingsURL + '/reloadLUTs', mainSiteController.refreshLUTs)
 
+// handle get request for downloading website
+router.get('/' + config.settingsURL + '/downloadWebsite', mainSiteController.downloadWebsite)
+
 // redirect all URLs that are not .ico and .css files to mainsiteController.getPage
 router.get('/*', function (req, res) {
   if (req.params['0'].endsWith('.ico')){
