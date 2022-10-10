@@ -229,9 +229,7 @@ exports.uploadWebsite = function (req, res) {
                 const newWebsiteFolder = fs.readdirSync('./newWebsite')
                 if (newWebsiteFolder.includes('website')) {
                   const newWebsiteFolderContent = fs.readdirSync('./newWebsite/website')
-                  console.log(newWebsiteFolderContent)
                   if (newWebsiteFolderContent.includes('404') && newWebsiteFolderContent.includes('config') && newWebsiteFolderContent.includes('files') && newWebsiteFolderContent.includes('footer') && newWebsiteFolderContent.includes('images') && newWebsiteFolderContent.includes('pages') && newWebsiteFolderContent.includes('title')) {
-                    console.log('Website is valid')
                     // delete the old website folder
                     fs.rmSync('./website', { recursive: true })
                     // move the new website folder to the root
