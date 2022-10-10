@@ -20,7 +20,9 @@
       </select>
       <br>
       <label for="settingsURL">Settings URL</label>
-      <input type="text" name="settingsURL" value="<%= config.settingsURL %>"><br>
+      <input id="settingsURL" type="text" name="settingsURL" value="<%= config.settingsURL %>">
+      <button name="uuidGen" id="uuidGen">Suggest UUID for URL</button>
+      <button name="cancelUuid" id="cancelUuid">Revert</button><br>
       <input type="submit" value="Save">
     </form>
     <p id="confUpdated"></p>
@@ -57,6 +59,20 @@
         })
       })
 
+      const uuidGen = document.getElementById('uuidGen')
+      const settingsURLinput = document.getElementById('settingsURL')
+      
+      uuidGen.addEventListener('click', (e) => {
+        e.preventDefault()
+        uuid = crypto.randomUUID()
+        settingsURLinput.value = uuid
+      })
+
+      const cancelUuid = document.getElementById('cancelUuid')
+      cancelUuid.addEventListener('click', (e) => {
+        e.preventDefault()
+        settingsURLinput.value = '<%= config.settingsURL %>'
+      })
 
 
       var reloadLUTs = document.getElementById('reloadLUTs');
