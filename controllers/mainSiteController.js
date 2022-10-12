@@ -1,5 +1,6 @@
 const baseConfig = require('../website/config/server-config.json')
 const configModel = require('../models/configModel')
+const sessionModel = require('../models/sessionModel')
 // const mainSiteModel = require('../models/mainSiteModel')
 const fs = require('fs')
 const directoryTree = require('directory-tree')
@@ -179,7 +180,39 @@ exports.getPage = function (req, res) {
   }
 }
 
+const cookieDebug = false
+
 exports.settings = function (req, res) {
+  if (!req.cookies) {
+    if (cookieDebug) console.log('no cookies')
+    res.redirect('/'+ config.settingsURL +'/login')
+    return
+  }
+  console.log(req.cookies)
+
+  const sessionToken = req.cookies['session_token']
+  if (!sessionToken) {
+    if (cookieDebug) console.log('no session token')
+    res.redirect('/'+ config.settingsURL +'/login')
+    return
+  }
+
+  // read secrets/sessions.json
+  const sessions = JSON.parse(fs.readFileSync('secrets/sessions.json').toString())
+  const userSession = new sessionModel(sessions[sessionToken].username, sessions[sessionToken].expiresAt)
+  if (!userSession) {
+    if (cookieDebug) console.log('no user session')
+    res.redirect('/'+ config.settingsURL +'/login')
+    return
+  }
+
+  if (userSession.isExpired()) {
+    if (cookieDebug) console.log('session expired')
+    delete sessions[sessionToken]
+    res.redirect('/'+ config.settingsURL +'/login')
+    return
+  }
+
   res.render('settings.ejs', { config: config })
 }
 
