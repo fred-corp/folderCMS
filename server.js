@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const routes = require('./routes')
 // const { connected } = require('process')
+const uuid = require('uuid')
 const cookieParser = require('cookie-parser')
 
 // const websiteDir = config.websiteDir
@@ -19,7 +20,7 @@ const port = 3000
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-app.use(cookieParser())
+app.use(cookieParser(uuid.v4()))
 
 
 app.use('/', routes)

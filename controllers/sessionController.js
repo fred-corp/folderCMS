@@ -39,7 +39,7 @@ exports.loginPost = function (req, res) {
       // save sessions to sessions .json file at secrets
       fs.writeFileSync('secrets/sessions.json', JSON.stringify(sessions, null, 2))
       // set cookie
-      res.cookie("session_token", sessionToken, { expires: expiresAt })
+      res.cookie("session_token", sessionToken, { expires: expiresAt, signed: true })
 
       res.redirect('/' + config.settingsURL)
     } else {

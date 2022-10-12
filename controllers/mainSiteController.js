@@ -183,15 +183,16 @@ exports.getPage = function (req, res) {
 const cookieDebug = false
 
 exports.settings = function (req, res) {
-  if (!req.cookies) {
+  const cookies = req.signedCookies
+  if (!cookies) {
     if (cookieDebug) console.log('no cookies')
     res.redirect('/'+ config.settingsURL +'/login')
     return
   }
 
-  if (cookieDebug) console.log('cookies: ' + req.cookies)
+  if (cookieDebug) console.log('cookies', cookies)
 
-  const sessionToken = req.cookies['session_token']
+  const sessionToken = cookies['session_token']
   if (!sessionToken) {
     if (cookieDebug) console.log('no session token')
     res.redirect('/'+ config.settingsURL +'/login')
@@ -200,6 +201,11 @@ exports.settings = function (req, res) {
 
   // read secrets/sessions.json
   const sessions = JSON.parse(fs.readFileSync('secrets/sessions.json').toString())
+  if (!sessions[sessionToken]) {
+    if (cookieDebug) console.log('no user session')
+    res.redirect('/'+ config.settingsURL +'/login')
+    return
+  }
   const userSession = new sessionModel(sessions[sessionToken].username, sessions[sessionToken].expiresAt)
   if (!userSession) {
     if (cookieDebug) console.log('no user session')
