@@ -188,7 +188,8 @@ exports.settings = function (req, res) {
     res.redirect('/'+ config.settingsURL +'/login')
     return
   }
-  console.log(req.cookies)
+
+  if (cookieDebug) console.log('cookies: ' + req.cookies)
 
   const sessionToken = req.cookies['session_token']
   if (!sessionToken) {
@@ -216,6 +217,8 @@ exports.settings = function (req, res) {
   res.render('settings.ejs', { config: config })
 }
 
+const errDebug = false
+
 exports.downloadWebsite = function (req, res) {
   const zip = new AdmZip()
   zip.addLocalFolder('website')
@@ -223,12 +226,12 @@ exports.downloadWebsite = function (req, res) {
   zip.writeZip('website.zip')
   res.download('website.zip', function (err) {
     if (err) {
-      console.log(err)
+      if (errDebug) console.log(err)
     } else {
       // delete zip file
       fs.unlink('website.zip', (err) => {
         if (err) {
-          console.log(err)
+          if (errDebug) console.log(err)
         }
       })
     }
@@ -241,22 +244,22 @@ exports.uploadWebsite = function (req, res) {
   form.uploadDir = 'uploads'
   form.parse(req, function (err, fields, files) {
     if (err) {
-      console.log(err)
+      if (errDebug) console.log(err)
     } else {
       if (files.websiteZip.originalFilename == 'website.zip' && files.websiteZip.mimetype == 'application/zip') {
         var oldpath = files.websiteZip.filepath;
         var newpath = './uploads/' + files.websiteZip.originalFilename;
         fs.rename(oldpath, newpath, function (err) {
           if (err) {
-            console.log(err)
+            if (errDebug) console.log(err)
           }
           else {
-            console.log('File uploaded and moved!');
+            if (errDebug) console.log('File uploaded and moved!');
             const zip = new AdmZip(newpath)
             zip.extractAllTo('./newWebsite', true)
             fs.unlink(newpath, (err) => {
               if (err) {
-                console.log(err)
+                if (errDebug) console.log(err)
               }
               else {
                 const newWebsiteFolder = fs.readdirSync('./newWebsite')

@@ -20,7 +20,6 @@ exports.loginPage = function (req, res) {
 }
 
 exports.loginPost = function (req, res) {
-  console.log(req.body)
   const username = req.body.username
   const password = req.body.password
 
@@ -39,8 +38,6 @@ exports.loginPost = function (req, res) {
       sessions[sessionToken] = session
       // save sessions to sessions .json file at secrets
       fs.writeFileSync('secrets/sessions.json', JSON.stringify(sessions, null, 2))
-
-      console.log(sessions)
       // set cookie
       res.cookie("session_token", sessionToken, { expires: expiresAt })
 
