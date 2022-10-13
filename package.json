@@ -11,6 +11,7 @@
     "marked": "^4.1.1",
     "node": "^18.10.0",
     "routes": "^2.1.0",
+    "sanitize-filename": "^1.6.3",
     "uuid": "^9.0.0"
   }
 }

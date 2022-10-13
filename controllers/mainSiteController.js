@@ -5,8 +5,9 @@ const sessionModel = require('../models/sessionModel')
 const fs = require('fs')
 const directoryTree = require('directory-tree')
 const marked = require('marked')
-const AdmZip = require("adm-zip");
-const formidable = require('formidable');
+const AdmZip = require("adm-zip")
+const formidable = require('formidable')
+const sanitize = require("sanitize-filename");
 
 // create a new configModel object
 const config = new configModel(baseConfig)
@@ -253,8 +254,8 @@ exports.uploadWebsite = function (req, res) {
       if (errDebug) console.log(err)
     } else {
       if (files.websiteZip.originalFilename == 'website.zip' && files.websiteZip.mimetype == 'application/zip') {
-        var oldpath = files.websiteZip.filepath;
-        var newpath = './uploads/' + files.websiteZip.originalFilename;
+        var oldpath = sanitize(files.websiteZip.path)
+        var newpath = './uploads/' + files.websiteZip.originalFilename
         fs.rename(oldpath, newpath, function (err) {
           if (err) {
             if (errDebug) console.log(err)
