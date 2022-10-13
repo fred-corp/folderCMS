@@ -254,8 +254,11 @@ exports.uploadWebsite = function (req, res) {
       if (errDebug) console.log(err)
     } else {
       if (files.websiteZip.originalFilename == 'website.zip' && files.websiteZip.mimetype == 'application/zip') {
-        var oldpath = sanitize(files.websiteZip.path)
+        var oldpath = sanitize(files.websiteZip.filepath)
+        oldpath = 'uploads/' + oldpath.replace('uploads', '')
+
         var newpath = './uploads/' + files.websiteZip.originalFilename
+        
         fs.rename(oldpath, newpath, function (err) {
           if (err) {
             if (errDebug) console.log(err)
