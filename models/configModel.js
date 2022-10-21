@@ -6,6 +6,7 @@ class config {
     this.siteTitle = baseConfig.siteTitle
     this.theme = baseConfig.theme
     this.settingsURL = baseConfig.settingsURL
+    this.isSet = baseConfig.isSet
   }
 
   // readConfig() variables from config file
@@ -14,6 +15,7 @@ class config {
     this.siteTitle = config.siteTitle
     this.theme = config.theme
     this.settingsURL = config.settingsURL
+    this.isSet = config.isSet
   }
 
   // writeConfig(newConfig) variables to config file, and update config object
@@ -22,6 +24,7 @@ class config {
     this.siteTitle = newConfig.siteTitle
     this.theme = newConfig.theme
     this.settingsURL = newConfig.settingsURL
+    this.isSet = newConfig.isSet
   }
 
 }
