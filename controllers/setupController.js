@@ -43,7 +43,7 @@ exports.setupPost = function (req, res) {
                 // check if file is less than 2MB
                 if (files.themeFile.size < 2000000 && files.themeFile.size > 0) {
                   // add theme file to /public/themes folder
-                  fs.renameSync(files.themeFile.path, 'public/themes/' + sanitize(files.themeFile.name))
+                  fs.renameSync(sanitize(files.themeFile.path), 'public/themes/' + sanitize(files.themeFile.name))
                   // set theme to uploaded file name
                   fields.theme = sanitize(files.themeFile.name)
                   createUser(fields)
