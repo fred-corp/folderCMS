@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= config.siteTitle %> - First Setup</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+  </head>
+  <body>
+    <h1><%= config.siteTitle %> - First Setup</h1>
+    <p id="loginError" style="color: red;"><%= error %></p>
+    <form action="" method="post">
+      <h2>Choose Site Title</h2>
+      <label for="siteTitle">Site Title</label>
+      <input type="text" name="siteTitle" value=<%= config.siteTitle %>><br>
+      <h2>Choose website Theme</h2>
+      <label for="theme">Theme</label>
+      <select name="theme" id="theme">
+        <option value="default">Default</option>
+        <option value="dark">Dark</option>
+        <option value="custom">Custom (upload)</option>
+      </select><br>
+      <p id="themeUpload"></p>
+      <h2>Create admin account</h2>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" placeholder="admin"><br>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="a secure password"><br>
+      <label for="password2">Confirm Password</label>
+      <input type="password" name="password2" id="password2" placeholder="a secure password"><br>
+      <p id="accountError" style="color: red;"></p>
+      <h2>Choose Settings URL</h2>
+      <label for="settingsURL">Settings URL</label>
+      <input type="text" name="settingsURL" id="settingsURL" value=<%= config.settingsURL %>><br>
+      <p id="URLerror"></p>
+
+      <input type="submit" value="Submit" id="submit">
+    </form>
+    <script>
+      // check if passwords match
+      document.getElementById('password2').addEventListener('input', function() {
+        if (document.getElementById('password').value != document.getElementById('password2').value) {
+          document.getElementById('password2').style.borderColor = 'red';
+          document.getElementById('accountError').innerHTML = 'Passwords do not match';
+          document.getElementById('submit').disabled = true;
+        } else {
+          document.getElementById('password2').style.borderColor = 'green';
+          document.getElementById('accountError').innerHTML = '';
+          document.getElementById('submit').disabled = false;
+        }
+      });
+
+      // check if passwords are secure (8chars, 1 number, 1 special char), prevent from submitting otherwise
+      document.getElementById('password').addEventListener('input', function() {
+        if (document.getElementById('password').value.length < 8) {
+          document.getElementById('password').style.borderColor = 'red';
+          document.getElementById('accountError').innerHTML = 'Password must be at least 8 characters';
+          document.getElementById('submit').disabled = true;
+        } else if (!document.getElementById('password').value.match(/[0-9]/g)) {
+          document.getElementById('password').style.borderColor = 'red';
+          document.getElementById('accountError').innerHTML = 'Password must contain at least 1 number';
+          document.getElementById('submit').disabled = true;
+        } else if (!document.getElementById('password').value.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g)) {
+          document.getElementById('password').style.borderColor = 'red';
+          document.getElementById('accountError').innerHTML = 'Password must contain at least 1 special character';
+          document.getElementById('submit').disabled = true;
+        } else {
+          document.getElementById('password').style.borderColor = 'green';
+          document.getElementById('accountError').innerHTML = '';
+          document.getElementById('submit').disabled = false;
+        }
+      });
+
+      // check if username is valid (no spaces, 3-20 chars)
+      document.getElementById('username').addEventListener('input', function() {
+        if (document.getElementById('username').value.length < 3) {
+          document.getElementById('username').style.borderColor = 'red';
+          document.getElementById('accountError').innerHTML = 'Username must be at least 3 characters';
+          document.getElementById('submit').disabled = true;
+        } else if (document.getElementById('username').value.length > 20) {
+          document.getElementById('username').style.borderColor = 'red';
+          document.getElementById('accountError').innerHTML = 'Username must be less than 20 characters';
+          document.getElementById('submit').disabled = true;
+        } else if (document.getElementById('username').value.match(/\s/g)) {
+          document.getElementById('username').style.borderColor = 'red';
+          document.getElementById('accountError').innerHTML = 'Username cannot contain spaces';
+          document.getElementById('submit').disabled = true;
+        } else {
+          document.getElementById('username').style.borderColor = 'green';
+          document.getElementById('accountError').innerHTML = '';
+          document.getElementById('submit').disabled = false;
+        }
+      });
+
+      // check if settingsURL is valid (no spaces, no special chars except '-')
+      document.getElementById('settingsURL').addEventListener('input', function() {
+        if (document.getElementById('settingsURL').value.match(/\s/g)) {
+          document.getElementById('settingsURL').style.borderColor = 'red';
+          document.getElementById('URLerror').innerHTML = 'Settings URL cannot contain spaces';
+          document.getElementById('submit').disabled = true;
+        } else if (document.getElementById('settingsURL').value.match(/[!@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]/g)) {
+          document.getElementById('settingsURL').style.borderColor = 'red';
+          document.getElementById('URLerror').innerHTML = 'Settings URL cannot contain special characters';
+          document.getElementById('submit').disabled = true;
+        } else {
+          document.getElementById('settingsURL').style.borderColor = 'green';
+          document.getElementById('URLerror').innerHTML = '';
+          document.getElementById('submit').disabled = false;
+        }
+      });
+
+      // add upload field if custom theme is selected
+      document.getElementById('theme').addEventListener('change', function() {
+        if (document.getElementById('theme').value == 'custom') {
+          document.getElementById('themeUpload').innerHTML = '<label for="themeFile">Upload Theme</label><input type="file" name="themeFile" id="themeFile">';
+        } else {
+          document.getElementById('themeUpload').innerHTML = '';
+        }
+      });
+
+      // disable submit button if any fields are empty
+      document.getElementById('submit').addEventListener('click', function() {
+        if (document.getElementById('username').value == '' || document.getElementById('password').value == '' || document.getElementById('password2').value == '' || document.getElementById('settingsURL').value == '') {
+          document.getElementById('submit').disabled = true;
+        }
+      });
+
+    </script>
+  </body>
+</html>
