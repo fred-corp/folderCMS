@@ -58,7 +58,7 @@ exports.setupPost = function (req, res) {
             }
           }
           // check if theme exists
-          else if (fs.existsSync('public/themes/' + fields.theme)) {
+          else if (fs.existsSync('public/themes/' + sanitize(fields.theme))) {
             createUser(fields)
           } else {
             res.render('setup.ejs', { title: 'Setup', config: config, error: 'Theme does not exist' })
