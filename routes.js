@@ -5,6 +5,7 @@ const configModel = require('./models/configModel')
 
 const mainSiteController = require('./controllers/mainSiteController')
 const sessionController = require('./controllers/sessionController')
+const setupController = require('./controllers/setupController')
 
 // create a new configModel object
 const config = new configModel(baseConfig)
@@ -34,6 +35,15 @@ router.get('/' + config.settingsURL + '/login', sessionController.loginPage)
 
 // handle login
 router.post('/' + config.settingsURL + '/login', sessionController.loginPost)
+
+// handle setup
+router.get('/setup', setupController.setupPage)
+
+// handle setup post
+router.post('/setup', setupController.setupPost)
+
+// handle setup complete
+router.get('/setupComplete', setupController.setupComplete)
 
 
 // redirect all URLs that are not .ico and .css files to mainsiteController.getPage
