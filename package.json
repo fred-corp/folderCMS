@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "adm-zip": "^0.5.9",
+    "adm-zip": "^0.5.10",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "directory-tree": "^3.5.1",
